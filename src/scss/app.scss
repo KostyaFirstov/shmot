@@ -1,0 +1,131 @@
+@import './vairables';
+@import './libs/normalize';
+@import './libs/fonts';
+
+body {
+	font-size: $fz-base;
+	font-weight: 500;
+}
+
+.content__area {
+	padding: $padding-blocks;
+}
+
+.wrapper {
+	max-width: $container-width;
+	margin: 0 auto;
+	padding: $padding-side;
+}
+
+.header-banner {
+	background-color: $gray-light-color;
+	padding: 10px 0;
+	font-size: $fz-sm;
+
+	&__wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&__ask {
+		flex: 1;
+	}
+
+	&__offer {
+		flex: 1;
+		text-align: center;
+		line-height: 16px;
+
+		&-sale {
+			color: $brand-color;
+			font-size: $fz-desc;
+			font-weight: 600;
+		}
+	}
+
+	&__options {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		column-gap: 8px;
+	}
+
+	&__ask a,
+	&__option a {
+		transition: 0.15s ease;
+	}
+	&__ask a:hover,
+	&__option a:hover {
+		color: $brand-color;
+	}
+	&__option:last-of-type:after {
+		content: unset;
+	}
+	&__option::after {
+		content: '|';
+		margin-left: 8px;
+	}
+}
+
+.header {
+	padding: 14px 0;
+	position: sticky;
+	top: 0;
+
+	&__wrapper,
+	&__options {
+		display: flex;
+		align-items: center;
+	}
+
+	&__links {
+		flex: 3;
+		display: flex;
+		column-gap: 16px;
+		justify-content: center;
+	}
+
+	&__link {
+		font-weight: 400;
+	}
+
+	&__link a:hover {
+		color: $brand-color;
+	}
+
+	&__link a,
+	&__option {
+		transition: 0.15s ease;
+	}
+
+	&__options {
+		flex: 1;
+		column-gap: 10px;
+		justify-content: flex-end;
+		position: relative;
+		left: 12px;
+	}
+
+	&__option {
+		cursor: pointer;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 100%;
+	}
+	&__option:hover {
+		background-color: $gray-light-color;
+	}
+
+	&__option:hover path {
+		stroke: $brand-color;
+	}
+}
+
+.logo {
+	flex: 1;
+	height: 40px;
+}
