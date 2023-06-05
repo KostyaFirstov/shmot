@@ -44,6 +44,15 @@ a {
 	text-decoration: none;
 }
 
+button {
+	border: unset;
+}
+
+a,
+span {
+	color: inherit;
+}
+
 @mixin noselect {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
