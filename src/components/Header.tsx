@@ -1,34 +1,49 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
+import Menu from './Menu'
 
 const Header = () => {
+	const [menu, setMenu] = React.useState(false)
+	const links = [
+		{ link: '/', name: 'Мужское' },
+		{ link: '/', name: 'Женское' },
+		{ link: '/', name: 'Аксессуары' },
+		{ link: '/', name: 'Дропы' },
+		{ link: '/', name: 'Обзоры' },
+		{ link: '/', name: 'Отзывы' },
+		{ link: '/about', name: 'О нас' }
+	]
+
+	const handleOpenMenu = (event: React.MouseEvent<HTMLLIElement>) => {
+		if (event.currentTarget.getAttribute('data-name') === 'Мужское') {
+		}
+
+		setMenu(true)
+	}
+
+	const handleCloseMenu = () => {
+		setMenu(false)
+	}
+
 	return (
 		<div className='header'>
 			<div className='header__wrapper wrapper'>
 				<Logo />
 				<ul className='header__links'>
-					<li className='header__link'>
-						<Link to='/'>Мужское</Link>
-					</li>
-					<li className='header__link'>
-						<Link to='/'>Женское</Link>
-					</li>
-					<li className='header__link'>
-						<Link to='/'>Аксессуары</Link>
-					</li>
-					<li className='header__link'>
-						<Link to='/'>Дропы</Link>
-					</li>
-					<li className='header__link'>
-						<Link to='/'>Обзоры</Link>
-					</li>
-					<li className='header__link'>
-						<Link to='/'>Отзывы</Link>
-					</li>
-					<li className='header__link'>
-						<Link to='/'>О нас</Link>
-					</li>
+					{links.map((link, index) => {
+						return (
+							<li
+								key={index}
+								data-name={link.name}
+								onMouseEnter={handleOpenMenu}
+								onMouseLeave={handleCloseMenu}
+								className='header__link'
+							>
+								<Link to={link.link}>{link.name}</Link>
+							</li>
+						)
+					})}
 				</ul>
 				<div className='header__options'>
 					<div className='header__option'>
@@ -94,6 +109,9 @@ const Header = () => {
 						</svg>
 					</div>
 				</div>
+				{menu && (
+					<Menu setMenu={e => setMenu(e)} handleCloseMenu={handleCloseMenu} />
+				)}
 			</div>
 		</div>
 	)

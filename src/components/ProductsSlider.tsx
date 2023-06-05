@@ -31,9 +31,9 @@ const ProductsSlider = () => {
 					<SwiperSlide>
 						<div className='product__item'>
 							<div className='product__content'>
-								<div className='product__image'>
+								<Link to='/product/nike-dunk' className='product__image'>
 									<img src='/img/swiper-image01.jpg' alt='' />
-								</div>
+								</Link>
 								<ul className='product__sizes'>
 									<li className='product__size'>39</li>
 									<li className='product__size'>40</li>

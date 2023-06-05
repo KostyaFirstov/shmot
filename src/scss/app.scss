@@ -108,6 +108,7 @@ body {
 	&__options {
 		display: flex;
 		align-items: center;
+		position: relative;
 	}
 
 	&__links {
@@ -117,7 +118,7 @@ body {
 		justify-content: center;
 	}
 
-	&__link {
+	&__link a {
 		font-weight: 400;
 	}
 
@@ -155,7 +156,61 @@ body {
 		stroke: $brand-color;
 	}
 }
+.menu {
+	position: absolute;
+	top: 10px;
+	left: 0;
+	transform: translateY(100%);
+	width: 100%;
+	height: 100%;
 
+	&__wrapper {
+		padding: $padding-side $padding-side;
+		background-color: #fff;
+		backdrop-filter: blur(100px);
+	}
+
+	&__columns {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		column-gap: 22px;
+	}
+
+	&__column {
+	}
+
+	&__column img {
+		max-width: 100%;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&__column-brands {
+	}
+
+	&__column-title {
+		margin-bottom: 16px;
+	}
+
+	&__column-links a {
+		color: $gray-dark-color;
+	}
+
+	&__column-link {
+	}
+
+	&__column-categories {
+	}
+
+	&__column-clothes {
+	}
+
+	// .header__column-shoes
+
+	&__column-shoes {
+	}
+}
 .logo {
 	flex: 1;
 	height: 40px;
