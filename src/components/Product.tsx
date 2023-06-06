@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 const Product = () => {
 	return (
-		<div className='product__item'>
+		<Link to='/product/nike-dunk' className='product__item'>
 			<div className='product__content'>
-				<Link to='/product/nike-dunk' className='product__image'>
+				<div className='product__image'>
 					<img src='/img/swiper-image01.jpg' alt='' />
-				</Link>
+				</div>
 				<ul className='product__sizes'>
 					<li className='product__size'>39</li>
 					<li className='product__size'>40</li>
@@ -64,7 +64,7 @@ const Product = () => {
 					</svg>
 				</div>
 			</div>
-		</div>
+		</Link>
 	)
 }
 

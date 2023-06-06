@@ -12,7 +12,6 @@ const links = [
 	{ link: '/', name: 'Аксессуары' },
 	{ link: '/', name: 'Дропы' },
 	{ link: '/', name: 'Обзоры' },
-	{ link: '/', name: 'Отзывы' },
 	{ link: '/about', name: 'О нас' }
 ]
 
