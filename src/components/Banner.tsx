@@ -37,9 +37,9 @@ const Banner: React.FC<IBannerProps> = ({
 						<p>{text}</p>
 					</div>
 					<div className='banner__btns'>
-						{buttons.map(btn => {
+						{buttons.map((btn, index) => {
 							return (
-								<div className='banner__btn'>
+								<div key={index} className='banner__btn'>
 									<button className='button button-black'>{btn}</button>
 								</div>
 							)

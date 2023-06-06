@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-interface IMenu {
+interface IMenuProps {
 	handleCloseMenu: () => void
 	setMenu: (value: boolean) => void
 }
 
-const Menu: React.FC<IMenu> = ({ handleCloseMenu, setMenu }) => {
+const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 	return (
 		<div
 			onMouseEnter={() => setMenu(true)}
