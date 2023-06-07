@@ -2,14 +2,6 @@ import React, { ChangeEvent } from 'react'
 import Product from '../components/Product'
 
 const Products = () => {
-	const [range, setRange] = React.useState([5, 30])
-
-	const handleRangeChange = (event: ChangeEvent) => {
-		console.log(event.currentTarget)
-		setRange([30, range[1]])
-		console.log(range)
-	}
-
 	return (
 		<div className='catalog'>
 			<div className='content__area'>
@@ -38,20 +30,57 @@ const Products = () => {
 					</div>
 					<div className='catalog__main'>
 						<div className='catalog__filters'>
-							<div className='filters__title'>
-								<span>Фильтры</span>
+							<div className='filters__row'>
+								<div className='filters__title'>Catalog</div>
+								<ul className='filters__list'>
+									<li className='filters__item'>Shoes</li>
+									<li className='filters__item'>Sports Bras</li>
+									<li className='filters__item'>Tops & T-Shirts</li>
+									<li className='filters__item'>Hoodies & Sweatshirts</li>
+									<li className='filters__item'>Jackets</li>
+									<li className='filters__item'>Trousers & Tights</li>
+									<li className='filters__item'>Shorts</li>
+									<li className='filters__item'>Tracksuits</li>
+									<li className='filters__item'>Jumpsuits & Rompers</li>
+									<li className='filters__item'>Skirts & Dresses</li>
+									<li className='filters__item'>Socks</li>
+									<li className='filters__item'>Accessories & Equipment</li>
+								</ul>
 							</div>
-							<div className='filters-product'>
-								<div className='filters-product__title'>
-									<span>Цена</span>
-								</div>
-								<div className='filter-product__item'>
-									<input
-										min={range[0]}
-										max={range[1]}
-										// onChange={handleRangeChange}
-										type='range'
-									/>
+							<div className='filters__row'>
+								<div className='filters__title'>Brands</div>
+								<ul className='filters__list'>
+									<li className='filters__item'>Shoes</li>
+									<li className='filters__item'>Sports Bras</li>
+									<li className='filters__item'>Tops & T-Shirts</li>
+									<li className='filters__item'>Hoodies & Sweatshirts</li>
+									<li className='filters__item'>Jackets</li>
+									<li className='filters__item'>Trousers & Tights</li>
+									<li className='filters__item'>Shorts</li>
+									<li className='filters__item'>Shoes</li>
+									<li className='filters__item'>Sports Bras</li>
+									<li className='filters__item'>Tops & T-Shirts</li>
+									<li className='filters__item'>Hoodies & Sweatshirts</li>
+									<li className='filters__item'>Jackets</li>
+									<li className='filters__item'>Trousers & Tights</li>
+									<li className='filters__item'>Shorts</li>
+								</ul>
+							</div>
+							<div className='filters__row'>
+								<div className='filters__title'>Gender</div>
+								<div className='filters__gender'>
+									<div className='filters__checkbox'>
+										<input type='checkbox' name='Men' id='men' />
+										<label htmlFor='men'>Men</label>
+									</div>
+									<div className='filters__checkbox'>
+										<input type='checkbox' name='Women' id='women' />
+										<label htmlFor='women'>Women</label>
+									</div>
+									<div className='filters__checkbox'>
+										<input type='checkbox' name='Unisex' id='unisex' />
+										<label htmlFor='unisex'>Unisex</label>
+									</div>
 								</div>
 							</div>
 						</div>

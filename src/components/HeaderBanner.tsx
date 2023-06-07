@@ -16,7 +16,7 @@ const HeaderBanner = () => {
 				</div>
 				<div className='header-banner__options'>
 					<div className='header-banner__option'>
-						<Link to='/'> Рассчитать стоимость</Link>
+						<Link to='/'> Узнать стоимость</Link>
 					</div>
 					<div className='header-banner__option'>
 						<Link to='/track-order'>Отследить заказ</Link>

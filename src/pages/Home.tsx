@@ -15,7 +15,7 @@ const Home = () => {
 							to the max.'
 				buttons={['Notify Me', 'Shop Air Max']}
 			/>
-			<ProductsSlider />
+			<ProductsSlider title='Популярное' />
 			<Banner
 				headerDesc='Don`t Miss'
 				image='/img/main-bg2.jpg'

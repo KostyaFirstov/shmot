@@ -5,10 +5,12 @@ import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
 import ProductPage from './pages/ProductPage'
 import Products from './pages/Products'
+import { ScrollToTop } from './utils/ScrollToTop'
 
 function App() {
 	return (
 		<div className='App'>
+			<ScrollToTop />
 			<Routes>
 				<Route path='/' element={<MainLayout />}>
 					<Route path='/' element={<Home />} />
