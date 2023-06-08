@@ -10,8 +10,8 @@ const links = [
 	{ link: '/men', name: 'Мужское' },
 	{ link: '/women', name: 'Женское' },
 	{ link: '/', name: 'Аксессуары' },
-	{ link: '/', name: 'Дропы' },
 	{ link: '/', name: 'Обзоры' },
+	{ link: '/', name: 'Дропы' },
 	{ link: '/about', name: 'О нас' }
 ]
 
@@ -46,7 +46,11 @@ const Header = () => {
 
 	const handleOpenMenu = (event: React.MouseEvent<HTMLLIElement>) => {
 		const eventAttribute = event.currentTarget.getAttribute('data-name')
-		if (eventAttribute === 'Мужское' || eventAttribute === 'Женское') {
+		if (
+			eventAttribute === 'Мужское' ||
+			eventAttribute === 'Женское' ||
+			eventAttribute === 'Аксессуары'
+		) {
 			setMenu(true)
 		}
 	}
