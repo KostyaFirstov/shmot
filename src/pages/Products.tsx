@@ -1,5 +1,5 @@
-import React, { ChangeEvent } from 'react'
-import Product from '../components/Product'
+import React from 'react'
+import ProductCard from '../components/ProductCard'
 
 const Products = () => {
 	return (
@@ -85,11 +85,11 @@ const Products = () => {
 							</div>
 						</div>
 						<div className='catalog__goods'>
-							<Product />
-							<Product />
-							<Product />
-							<Product />
-							<Product />
+							<ProductCard />
+							<ProductCard />
+							<ProductCard />
+							<ProductCard />
+							<ProductCard />
 						</div>
 					</div>
 				</div>

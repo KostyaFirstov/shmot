@@ -347,9 +347,10 @@ body {
 		margin-bottom: 4px;
 	}
 
-	&__row button {
+	&__row .button {
 		padding: 12px;
 		width: 100%;
+		display: block;
 	}
 
 	&__row:last-of-type button {
@@ -362,7 +363,7 @@ body {
 		font-size: $fz-xs;
 	}
 
-	&__row a {
+	&__link {
 		color: $brand-color;
 	}
 
@@ -714,6 +715,7 @@ body {
 		background-repeat: no-repeat;
 		width: 12px;
 		height: 12px;
+		cursor: pointer;
 	}
 	&__checkbox input::after {
 		content: '';
@@ -823,6 +825,7 @@ body {
 		}
 		&__articule.active {
 			background-color: $brand-color;
+			border: 1px solid $brand-color;
 		}
 		&__text {
 			font-weight: 400;
@@ -997,7 +1000,7 @@ body {
 	&__slider {
 		&-thumb img {
 			width: 70px;
-			height: 70px;
+			height: 64px;
 			object-fit: cover;
 		}
 	}
@@ -1025,8 +1028,130 @@ body {
 	}
 }
 
-.swiper-wrapper {
-	min-width: 0;
+.reviews {
+	&__wrapper {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 22px;
+	}
+}
+
+.review-card {
+	&__image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&__info {
+		text-align: center;
+		padding: 10px;
+	}
+
+	&__desc {
+		font-weight: 300;
+	}
+}
+
+.form {
+	padding: 64px 0;
+	&__title {
+		text-align: center;
+	}
+
+	&__wrapper {
+		display: flex;
+		justify-content: center;
+		margin-top: 36px;
+	}
+
+	&__input {
+		width: 100%;
+		margin-bottom: 10px;
+		position: relative;
+	}
+	&__checkbox {
+		margin-bottom: 20px;
+	}
+
+	&__checkbox input {
+		position: absolute;
+	}
+
+	&__checkbox input:checked::before {
+		content: '';
+	}
+
+	&__checkbox input::before {
+		position: absolute;
+		top: 75%;
+		left: 75%;
+		transform: translate(-50%, -50%);
+		z-index: 10;
+		background-image: url('../../public/img/icons/checkmark.svg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		width: 10px;
+		height: 10px;
+		cursor: pointer;
+	}
+
+	&__checkbox input::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 18px;
+		height: 18px;
+		border: 1px solid $black;
+		background-color: #fff;
+		border-radius: $small-radius;
+		cursor: pointer;
+	}
+
+	&__input input {
+		border: 2px solid $gray-medium-color;
+		border-radius: $small-radius;
+		width: 344px;
+		height: 46px;
+		padding: 10px;
+		transition: 0.15s ease;
+		font-size: $fz-base;
+	}
+
+	&__input input.error {
+		border: 2px solid #e64646;
+	}
+
+	&__input input:focus {
+		border: 2px solid $brand-color;
+	}
+
+	&__button {
+		width: 100%;
+		height: 46px;
+	}
+
+	&__error {
+		color: #e64646;
+		font-size: $fz-xs;
+		margin-top: 4px;
+	}
+
+	&__desc {
+		text-align: center;
+		margin-top: 20px;
+	}
+
+	&__desc a {
+		color: $brand-color;
+	}
+
+	&__label {
+		position: relative;
+		left: 25px;
+		font-weight: 400;
+	}
 }
 
 .footer {

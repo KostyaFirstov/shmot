@@ -10,7 +10,7 @@ const links = [
 	{ link: '/men', name: 'Мужское' },
 	{ link: '/women', name: 'Женское' },
 	{ link: '/', name: 'Аксессуары' },
-	{ link: '/', name: 'Обзоры' },
+	{ link: '/reviews', name: 'Обзоры' },
 	{ link: '/', name: 'Дропы' },
 	{ link: '/about', name: 'О нас' }
 ]

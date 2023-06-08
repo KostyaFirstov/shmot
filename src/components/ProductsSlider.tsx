@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Navigation, Pagination } from 'swiper'
-import Product from './Product'
+import ProductCard from './ProductCard'
 
 interface IProductsSliderProps {
 	title: string
@@ -34,19 +34,19 @@ const ProductsSlider: React.FC<IProductsSliderProps> = ({ title }) => {
 					}}
 				>
 					<SwiperSlide>
-						<Product />
+						<ProductCard />
 					</SwiperSlide>
 					<SwiperSlide>
-						<Product />
+						<ProductCard />
 					</SwiperSlide>
 					<SwiperSlide>
-						<Product />
+						<ProductCard />
 					</SwiperSlide>
 					<SwiperSlide>
-						<Product />
+						<ProductCard />
 					</SwiperSlide>
 					<SwiperSlide>
-						<Product />
+						<ProductCard />
 					</SwiperSlide>
 				</Swiper>
 			</div>

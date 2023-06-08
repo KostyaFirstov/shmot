@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import ProductModal from './ProductModal'
 
-const Product = () => {
+const ProductCard = () => {
 	const [spoiler, setSpoiler] = React.useState(false)
 	const spoilerRef = React.useRef<HTMLDivElement>(null)
 	const openSpoilerRef = React.useRef<HTMLDivElement>(null)
@@ -113,4 +113,4 @@ const Product = () => {
 	)
 }
 
-export default Product
+export default ProductCard

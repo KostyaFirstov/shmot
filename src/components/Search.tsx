@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Product from './Product'
+import Product from './ProductCard'
 
 interface ISearch {
 	handleToggleSearch: () => void
