@@ -18,8 +18,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<MainLayout />}>
 					<Route path='/' element={<Home />} />
-					<Route path='/men' element={<Products />} />
-					<Route path='/women' element={<Products />} />
+					<Route path='/catalog' element={<Products />} />
 					<Route path='/reviews' element={<Reviews />} />
 					<Route path='/review/:title' element={<ReviewPage />} />
 					<Route path='/product/:title' element={<ProductPage />} />

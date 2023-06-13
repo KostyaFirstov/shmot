@@ -1,6 +1,9 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { useAppDispatch } from '../redux/store'
+import { fetchAuth, selectErrorAuth, selectIsAuth } from '../redux/slices/auth'
+import { useSelector } from 'react-redux'
 
 type Inputs = {
 	email: string
@@ -9,6 +12,9 @@ type Inputs = {
 }
 
 const Login = () => {
+	const dispatch = useAppDispatch()
+	const isAuth = useSelector(selectIsAuth)
+	const errorAuth = useSelector(selectErrorAuth)
 	const {
 		register,
 		handleSubmit,
@@ -22,7 +28,22 @@ const Login = () => {
 		mode: 'onSubmit'
 	})
 
-	const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
+	const onSubmit: SubmitHandler<Inputs> = async data => {
+		const loginData = {
+			email: data.email,
+			password: data.password
+		}
+		dispatch(fetchAuth(loginData))
+		// const loadedData = await dispatch(fetchAuth(loginData))
+
+		// if (data.signed && 'accessToken' in loadedData.payload) {
+		// 	localStorage.setItem('accessToken', loadedData.payload.accessToken)
+		// }
+	}
+
+	if (isAuth) {
+		return <Navigate to='/' />
+	}
 
 	return (
 		<div className='form'>
@@ -70,6 +91,9 @@ const Login = () => {
 									Сохранить вход
 								</label>
 							</div>
+							{errorAuth && (
+								<div className='error form__error-main'>{errorAuth}</div>
+							)}
 							<button className='form__button button button-black'>
 								Войти
 							</button>

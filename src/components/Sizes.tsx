@@ -1,13 +1,12 @@
 import React from 'react'
 
-export const exampleSizes = ['UK 7', 'UK 7.5', 'UK 8', 'UK 8.5', 'UK 11.5']
-
 interface ISizesProps {
+	sizes: number[]
 	activeSize: number
 	setActiveSize: (i: number) => void
 }
 
-const Sizes: React.FC<ISizesProps> = ({ activeSize, setActiveSize }) => {
+const Sizes: React.FC<ISizesProps> = ({ sizes, activeSize, setActiveSize }) => {
 	return (
 		<div className='product-info__sizes'>
 			<div className='sizes__header'>
@@ -19,7 +18,7 @@ const Sizes: React.FC<ISizesProps> = ({ activeSize, setActiveSize }) => {
 				</div>
 			</div>
 			<div className='sizes__list'>
-				{exampleSizes.map((item, index) => {
+				{sizes.map((item, index) => {
 					return (
 						<div
 							key={index}

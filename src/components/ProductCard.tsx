@@ -1,8 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import ProductModal from './ProductModal'
+import { ProductParams } from '../redux/slices/products'
 
-const ProductCard = () => {
+const ProductCard: React.FC<ProductParams> = ({
+	_id,
+	title,
+	desc,
+	img,
+	price,
+	sizes
+}) => {
 	const [spoiler, setSpoiler] = React.useState(false)
 	const spoilerRef = React.useRef<HTMLDivElement>(null)
 	const openSpoilerRef = React.useRef<HTMLDivElement>(null)
@@ -39,27 +47,31 @@ const ProductCard = () => {
 	return (
 		<>
 			<div className='product__item'>
-				<Link to='/product/nike-dunk'>
+				<Link to={`/product/${title}`}>
 					<div className='product__content'>
 						<div className='product__image'>
-							<img src='/img/swiper-image01.jpg' alt='' />
+							{/* img */}
+							<img src='/img/swiper-image01.jpg' alt={title} />
 						</div>
 						<ul className='product__sizes'>
-							<li className='product__size'>39</li>
-							<li className='product__size'>40</li>
-							<li className='product__size'>41</li>
-							<li className='product__size'>42</li>
+							{sizes.map((item, index) => {
+								return (
+									<li key={index} className='product__size'>
+										{item}
+									</li>
+								)
+							})}
 						</ul>
 					</div>
 					<div className='product__info'>
 						<div className='product__leftside'>
-							<div className='product__name'>Nike Air Max Pulse</div>
-							<div className='product__desc'>Women's Shoes</div>
+							<div className='product__name'>{title}</div>
+							<div className='product__desc'>{desc}</div>
 						</div>
 						<div className='product__rightside'>
-							<div className='product__price'>13 995 ₽</div>
+							<div className='product__price'>{price} ₽</div>
 							<div className='product__link'>
-								<Link to='/product/nike-dunk' className='button button-black'>
+								<Link to={`/product/${title}`} className='button button-black'>
 									Подробнее
 								</Link>
 							</div>
@@ -107,7 +119,11 @@ const ProductCard = () => {
 				</div>
 			</div>
 			{spoiler && (
-				<ProductModal hanldeSpoiler={hanldeSpoiler} spoilerRef={spoilerRef} />
+				<ProductModal
+					productTitle={title}
+					hanldeSpoiler={hanldeSpoiler}
+					spoilerRef={spoilerRef}
+				/>
 			)}
 		</>
 	)

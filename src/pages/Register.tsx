@@ -1,14 +1,24 @@
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { useAppDispatch } from '../redux/store'
+import { useSelector } from 'react-redux'
+import {
+	fetchAuthRegister,
+	selectErrorAuth,
+	selectIsAuth
+} from '../redux/slices/auth'
 
 type Inputs = {
-	name: string
+	username: string
 	email: string
 	password: string
 }
 
 const Register = () => {
+	const dispatch = useAppDispatch()
+	const isAuth = useSelector(selectIsAuth)
+	const errorAuth = useSelector(selectErrorAuth)
 	const {
 		register,
 		handleSubmit,
@@ -16,14 +26,20 @@ const Register = () => {
 		formState: { errors, isValid }
 	} = useForm<Inputs>({
 		defaultValues: {
-			name: '',
+			username: '',
 			email: '',
 			password: ''
 		},
 		mode: 'onSubmit'
 	})
 
-	const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
+	const onSubmit: SubmitHandler<Inputs> = data => {
+		dispatch(fetchAuthRegister(data))
+	}
+
+	if (isAuth) {
+		return <Navigate to='/' />
+	}
 
 	return (
 		<div className='form'>
@@ -36,15 +52,15 @@ const Register = () => {
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<div className='form__input'>
 								<input
-									className={errors.name && 'error'}
+									className={errors.username && 'error'}
 									type='text'
 									placeholder='Имя'
-									{...register('name', {
-										required: 'Укажите почту',
+									{...register('username', {
+										required: 'Укажите имя',
 										minLength: 2
 									})}
 								/>
-								{errors.name && (
+								{errors.username && (
 									<div className='form__error'>
 										Имя должно быть длинее 2 символов
 									</div>

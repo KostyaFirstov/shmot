@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { logout, selectIsAuth } from '../redux/slices/auth'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../redux/store'
 
 interface IAccountProps {}
 
 const Account: React.FC<IAccountProps> = () => {
+	const dispatch = useAppDispatch()
+	const isAuth = useSelector(selectIsAuth)
 	const [account, setAccount] = React.useState(false)
 	const accountRef = React.useRef<HTMLDivElement>(null)
 
@@ -100,6 +105,12 @@ const Account: React.FC<IAccountProps> = () => {
 									strokeLinejoin='round'
 								/>
 							</svg>
+						</button>
+						<button
+							onClick={() => dispatch(logout())}
+							className='cart-dropdown__close'
+						>
+							logout
 						</button>
 					</div>
 				</div>

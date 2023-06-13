@@ -7,8 +7,8 @@ import Account from './Account'
 import Cart from './Cart'
 
 const links = [
-	{ link: '/men', name: 'Мужское' },
-	{ link: '/women', name: 'Женское' },
+	{ link: '/catalog?gender=men', name: 'Мужское' },
+	{ link: '/catalog?gender=women', name: 'Женское' },
 	{ link: '/', name: 'Аксессуары' },
 	{ link: '/reviews', name: 'Обзоры' },
 	{ link: '/', name: 'Дропы' },

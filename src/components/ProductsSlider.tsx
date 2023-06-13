@@ -33,7 +33,7 @@ const ProductsSlider: React.FC<IProductsSliderProps> = ({ title }) => {
 						}
 					}}
 				>
-					<SwiperSlide>
+					{/* <SwiperSlide>
 						<ProductCard />
 					</SwiperSlide>
 					<SwiperSlide>
@@ -47,7 +47,7 @@ const ProductsSlider: React.FC<IProductsSliderProps> = ({ title }) => {
 					</SwiperSlide>
 					<SwiperSlide>
 						<ProductCard />
-					</SwiperSlide>
+					</SwiperSlide> */}
 				</Swiper>
 			</div>
 		</div>

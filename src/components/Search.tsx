@@ -150,9 +150,9 @@ const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
 						</div>
 					</div>
 					<div className='search__goods'>
+						{/* <Product />
 						<Product />
-						<Product />
-						<Product />
+						<Product /> */}
 					</div>
 				</div>
 			</div>
