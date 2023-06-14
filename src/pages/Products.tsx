@@ -1,45 +1,35 @@
 import React from 'react'
 import ProductCard from '../components/ProductCard'
 import { useAppDispatch } from '../redux/store'
-import { useSelector } from 'react-redux'
-import {
-	fetchProducts,
-	selectProducts,
-	selectProductsStatus
-} from '../redux/slices/products'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProducts, selectProducts } from '../redux/slices/products'
 import Filters from '../components/Filters'
-import {
-	fetchCategories,
-	selectCategories,
-	selectCategoriesStatus
-} from '../redux/slices/categories'
-import {
-	fetchBrands,
-	selectBrands,
-	selectBrandsStatus
-} from '../redux/slices/brands'
+import { fetchCategories, selectCategories } from '../redux/slices/categories'
+import { fetchBrands, selectBrands } from '../redux/slices/brands'
 import { useLocation } from 'react-router-dom'
 import Sort from '../components/Sort'
+import {
+	selectBrand,
+	selectCategory,
+	setBrandValue,
+	setCategoryValue
+} from '../redux/slices/filter'
 
 const Products = () => {
-	const [category, setCategory] = React.useState('')
-	const [brand, setBrand] = React.useState('')
-
-	const dispatch = useAppDispatch()
 	const location = useLocation()
 
 	const products = useSelector(selectProducts)
-	const productsStatus = useSelector(selectProductsStatus)
-
+	const category = useSelector(selectCategory)
+	const brand = useSelector(selectBrand)
 	const categories = useSelector(selectCategories)
-	const categoriesStatus = useSelector(selectCategoriesStatus)
-
 	const brands = useSelector(selectBrands)
-	const brandsStatus = useSelector(selectBrandsStatus)
+
+	const dispatch = useDispatch()
+	const appDispatch = useAppDispatch()
 
 	React.useEffect(() => {
-		dispatch(fetchCategories())
-		dispatch(fetchBrands())
+		appDispatch(fetchCategories())
+		appDispatch(fetchBrands())
 	}, [])
 
 	const handleProducts = () => {
@@ -49,7 +39,7 @@ const Products = () => {
 			? `${location.search.slice(1)}`
 			: ''
 
-		dispatch(fetchProducts({ categoryValue, brandValue, gender }))
+		appDispatch(fetchProducts({ categoryValue, brandValue, gender }))
 	}
 
 	React.useEffect(() => {
@@ -71,11 +61,15 @@ const Products = () => {
 					<div className='catalog__main'>
 						<div className='catalog__filters'>
 							<Filters
-								handleFilter={value => setCategory(value)}
+								handleFilter={value => dispatch(setCategoryValue(value))}
 								title='Категории'
 								list={categories}
 							/>
-							<Filters handleFilter={setBrand} title='Бренды' list={brands} />
+							<Filters
+								handleFilter={value => dispatch(setBrandValue(value))}
+								title='Бренды'
+								list={brands}
+							/>
 						</div>
 						<div className='catalog__goods'>
 							{products.map((item, index) => {

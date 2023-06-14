@@ -710,14 +710,32 @@ body {
 		max-height: 290px;
 		overflow-y: auto;
 		overflow-x: hidden;
-		padding: 20px 0;
+		padding: 10px 0;
 		border-top: 1px solid $gray-medium-color;
 		border-bottom: 1px solid $gray-medium-color;
 	}
 
 	&__item {
+		position: relative;
 		cursor: pointer;
-		margin-bottom: 15px;
+		padding: 7.5px;
+
+		&.active {
+			color: $brand-color;
+			background-color: $gray-light-color;
+		}
+
+		&.active::after {
+			content: '×';
+		}
+
+		&::after {
+			position: absolute;
+			top: 50%;
+			right: 7.5px;
+			transform: translateY(-50%);
+			font-size: 28px;
+		}
 	}
 }
 

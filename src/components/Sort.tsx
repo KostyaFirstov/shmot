@@ -1,24 +1,38 @@
 import React from 'react'
-import { SortPropertyEnum } from '../redux/slices/sort'
+import {
+	SortPropertyEnum,
+	selectSort,
+	setSortValue
+} from '../redux/slices/filter'
+import { useDispatch, useSelector } from 'react-redux'
+
+const sortList = [
+	{ name: 'популярности ↑', sortProperty: SortPropertyEnum.RATING_DESC },
+	{ name: 'популярности ↓', sortProperty: SortPropertyEnum.RATING_ASC },
+	{ name: 'цене ↑', sortProperty: SortPropertyEnum.PRICE_DESC },
+	{ name: 'цене ↓', sortProperty: SortPropertyEnum.PRICE_ASC },
+	{ name: 'новизне ↑', sortProperty: SortPropertyEnum.TITLE_DESC },
+	{ name: 'новизне ↓', sortProperty: SortPropertyEnum.TITLE_ASC }
+]
 
 const Sort = () => {
-	const sortList = [
-		{ name: 'Популярности ↑', sortProperty: SortPropertyEnum.RATING_DESC },
-		{ name: 'Популярности ↓', sortProperty: SortPropertyEnum.RATING_ASC },
-		{ name: 'Цене ↑', sortProperty: SortPropertyEnum.PRICE_DESC },
-		{ name: 'Цене ↓', sortProperty: SortPropertyEnum.PRICE_ASC },
-		{ name: 'Новизне ↑', sortProperty: SortPropertyEnum.TITLE_DESC },
-		{ name: 'Новизне ↓', sortProperty: SortPropertyEnum.TITLE_ASC }
-	]
-	const [sortValue, setSortValue] = React.useState(0)
+	const [sortModal, setSortModal] = React.useState(false)
 
-	const hanldeSortValue = () => {
-		setSortValue()
+	const dispatch = useDispatch()
+	const sortValue = useSelector(selectSort)
+
+	const hanldeSortValue = (i: number) => {
+		dispatch(setSortValue(sortList[i]))
+		setSortModal(false)
+	}
+
+	const hanldeSortModal = () => {
+		setSortModal(prev => !prev)
 	}
 
 	return (
 		<div className='sort'>
-			<div className='sort__title'>
+			<div onClick={hanldeSortModal} className='sort__title'>
 				<svg
 					width='14'
 					height='14'
@@ -35,25 +49,25 @@ const Sort = () => {
 						fill='black'
 					/>
 				</svg>
-				Сортировать по <span>{sortList[sortValue]}</span>
+				Сортировать по <span>{sortValue}</span>
 			</div>
-			<div className='sort__modal'>
-				<ul className='sort__list'>
-					{sortList.map((item, index) => {
-						return (
-							<li key={index} className='sort__item'>
-								{item}
-							</li>
-						)
-					})}
-					<li className='sort__item'>Популярности ↑</li>
-					<li className='sort__item'>Популярности ↓</li>
-					<li className='sort__item'>Цене ↑</li>
-					<li className='sort__item'>Цене ↓</li>
-					<li className='sort__item'>Новизне ↑</li>
-					<li className='sort__item'>Новизне ↓</li>
-				</ul>
-			</div>
+			{sortModal && (
+				<div className='sort__modal'>
+					<ul className='sort__list'>
+						{sortList.map((item, index) => {
+							return (
+								<li
+									onClick={() => hanldeSortValue(index)}
+									key={index}
+									className='sort__item'
+								>
+									{item.name}
+								</li>
+							)
+						})}
+					</ul>
+				</div>
+			)}
 		</div>
 	)
 }
