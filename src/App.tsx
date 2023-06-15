@@ -10,6 +10,7 @@ import Reviews from './pages/Reviews'
 import ReviewPage from './pages/ReviewPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import SearchPage from './pages/SearchPage'
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 					<Route path='/' element={<Home />} />
 					<Route path='/catalog' element={<Products />} />
 					<Route path='/reviews' element={<Reviews />} />
+					<Route path='/search' element={<SearchPage />} />
 					<Route path='/review/:title' element={<ReviewPage />} />
 					<Route path='/product/:title' element={<ProductPage />} />
 					<Route path='/login' element={<Login />} />

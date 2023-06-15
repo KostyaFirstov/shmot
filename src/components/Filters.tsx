@@ -1,11 +1,11 @@
 import React from 'react'
-import { CategoriesParams } from '../redux/slices/categories'
-import { selectBrand, selectCategory } from '../redux/slices/filter'
+import { FetchFiltersParams } from '../redux/slices/filters'
+import { selectBrand, selectCategory } from '../redux/slices/filters'
 import { useSelector } from 'react-redux'
 
 interface FiltersProps {
 	title: string
-	list: CategoriesParams[]
+	list: FetchFiltersParams[]
 	handleFilter: (value: string) => void
 }
 

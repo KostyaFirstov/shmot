@@ -655,6 +655,10 @@ body {
 		grid-gap: 22px;
 		margin-left: 40px;
 	}
+
+	&__title span {
+		color: $brand-color;
+	}
 }
 
 .sort {

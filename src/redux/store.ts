@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import {
 	persistStore,
@@ -13,9 +13,7 @@ import {
 import storage from 'redux-persist/lib/storage'
 import auth from './slices/auth'
 import products from './slices/products'
-import categories from './slices/categories'
-import brands from './slices/brands'
-import filter from './slices/filter'
+import filters from './slices/filters'
 
 const persistConfig = {
 	key: 'root',
@@ -28,10 +26,8 @@ const persistedReducer = persistReducer(persistConfig, auth)
 export const store = configureStore({
 	reducer: {
 		auth: persistedReducer,
-		products: products,
-		categories: categories,
-		brands: brands,
-		filter: filter
+		products,
+		filters
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

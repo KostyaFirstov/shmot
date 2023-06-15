@@ -3,16 +3,16 @@ import {
 	SortPropertyEnum,
 	selectSort,
 	setSortValue
-} from '../redux/slices/filter'
+} from '../redux/slices/filters'
 import { useDispatch, useSelector } from 'react-redux'
 
 const sortList = [
-	{ name: 'популярности ↑', sortProperty: SortPropertyEnum.RATING_DESC },
-	{ name: 'популярности ↓', sortProperty: SortPropertyEnum.RATING_ASC },
+	{ name: 'популярности ↑', sortProperty: SortPropertyEnum.POPULAR_DESC },
+	{ name: 'популярности ↓', sortProperty: SortPropertyEnum.POPULAR_ASC },
 	{ name: 'цене ↑', sortProperty: SortPropertyEnum.PRICE_DESC },
 	{ name: 'цене ↓', sortProperty: SortPropertyEnum.PRICE_ASC },
-	{ name: 'новизне ↑', sortProperty: SortPropertyEnum.TITLE_DESC },
-	{ name: 'новизне ↓', sortProperty: SortPropertyEnum.TITLE_ASC }
+	{ name: 'новизне ↑', sortProperty: SortPropertyEnum.NEW_DESC },
+	{ name: 'новизне ↓', sortProperty: SortPropertyEnum.NEW_ASC }
 ]
 
 const Sort = () => {

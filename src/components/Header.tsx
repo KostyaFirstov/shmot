@@ -5,6 +5,8 @@ import Menu from './Menu'
 import Search from './Search'
 import Account from './Account'
 import Cart from './Cart'
+import { useSelector } from 'react-redux'
+import { selectRequested } from '../redux/slices/filters'
 
 const links = [
 	{ link: '/catalog?gender=men', name: 'Мужское' },
@@ -19,6 +21,7 @@ const Header = () => {
 	const [menu, setMenu] = React.useState(false)
 	const [search, setSearch] = React.useState(false)
 	const bgRef = React.useRef<HTMLDivElement>(null)
+	const requested = useSelector(selectRequested)
 
 	React.useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -33,6 +36,10 @@ const Header = () => {
 		document.body.addEventListener('click', handleClickOutside)
 		return () => document.body.removeEventListener('click', handleClickOutside)
 	}, [])
+
+	React.useEffect(() => {
+		localStorage.setItem('requested', JSON.stringify(requested))
+	}, [requested])
 
 	const handleToggleSearch = () => {
 		if (!search) {

@@ -4,8 +4,13 @@ import { useAppDispatch } from '../redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts, selectProducts } from '../redux/slices/products'
 import Filters from '../components/Filters'
-import { fetchCategories, selectCategories } from '../redux/slices/categories'
-import { fetchBrands, selectBrands } from '../redux/slices/brands'
+import {
+	fetchCategories,
+	selectCategories,
+	selectSearch,
+	selectSort
+} from '../redux/slices/filters'
+import { fetchBrands, selectBrands } from '../redux/slices/filters'
 import { useLocation } from 'react-router-dom'
 import Sort from '../components/Sort'
 import {
@@ -13,7 +18,7 @@ import {
 	selectCategory,
 	setBrandValue,
 	setCategoryValue
-} from '../redux/slices/filter'
+} from '../redux/slices/filters'
 
 const Products = () => {
 	const location = useLocation()
@@ -23,6 +28,7 @@ const Products = () => {
 	const brand = useSelector(selectBrand)
 	const categories = useSelector(selectCategories)
 	const brands = useSelector(selectBrands)
+	const sortValue = useSelector(selectSort)
 
 	const dispatch = useDispatch()
 	const appDispatch = useAppDispatch()
@@ -38,15 +44,14 @@ const Products = () => {
 		const gender = location.search.startsWith('?gender')
 			? `${location.search.slice(1)}`
 			: ''
+		// const sort = sortValue ? '&sortBy=' : ''
 
 		appDispatch(fetchProducts({ categoryValue, brandValue, gender }))
 	}
 
 	React.useEffect(() => {
 		handleProducts()
-	}, [location, category, brand])
-
-	console.log(category, brand)
+	}, [location, category, brand, sortValue])
 
 	return (
 		<div className='catalog'>
