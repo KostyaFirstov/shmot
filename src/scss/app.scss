@@ -1171,6 +1171,83 @@ body {
 	}
 }
 
+.cart {
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 24px;
+
+		&-clear .button {
+			text-align: center;
+			font-size: $fz-sm;
+		}
+	}
+
+	&__container {
+	}
+
+	// .cart__item
+
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-top: 1px solid $gray-medium-color;
+		padding: 12px 0;
+	}
+
+	&__item:last-of-type {
+		border-bottom: 1px solid $gray-medium-color;
+	}
+
+	&__item-image img {
+		max-width: 300px;
+		border-radius: $small-radius;
+		width: 100%;
+	}
+
+	// .cart__item-info
+
+	&__item-info {
+	}
+
+	// .cart__title
+
+	&__title {
+	}
+
+	// .cart__desc
+
+	&__desc {
+		margin: 4px 0;
+	}
+
+	// .cart__size
+
+	&__size {
+	}
+
+	&__item-price {
+		font-size: $fz-desc;
+	}
+
+	&__item-count {
+		display: flex;
+		align-items: center;
+	}
+
+	&__item-count strong {
+		font-size: $fz-desc;
+		margin: 0 12px;
+	}
+
+	// .cart__item-remove
+
+	&__item-remove {
+	}
+}
+
 .footer {
 	background-color: $black;
 	color: $gray-dark-color;

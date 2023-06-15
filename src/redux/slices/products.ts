@@ -6,10 +6,10 @@ import { LoadingProperty } from './auth'
 export const fetchProducts = createAsyncThunk(
 	'auth/fetchProducts',
 	async (params: FetchProductsParams) => {
-		const { gender, categoryValue, brandValue } = params
+		const { gender, categoryValue, brandValue, sort } = params
 
 		const { data } = await axios.get<ProductParams[]>(
-			`/api/products?${gender}${categoryValue}${brandValue}`
+			`/api/products?${gender}${categoryValue}${brandValue}${sort}`
 		)
 		return data
 	}
@@ -31,6 +31,7 @@ export type FetchProductsParams = {
 	gender: string
 	categoryValue: string
 	brandValue: string
+	sort: string
 }
 
 export type FetchProductsSearchParams = {

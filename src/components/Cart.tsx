@@ -46,9 +46,21 @@ const Cart: React.FC<ICartProps> = () => {
 								<p>Вы пока что еще ничего не добавили в корзину</p>
 							</div>
 							<div className='cart-dropdown__link'>
+								<Link className='button button-black' to='/cart'>
+									Перейти в корзину
+								</Link>
+							</div>
+							<div className='cart-dropdown__link'>
 								<Link className='button button-black' to='/'>
 									Перейти в каталог
 								</Link>
+							</div>
+						</div>
+						<div className='cart-dropdown__items'>
+							<div className='cart-dropdown__item'>
+								{/* <div className='cart-dropdown__img'>
+									<img src='/img/swiper-image01.jpg' alt='' />
+								</div> */}
 							</div>
 						</div>
 						<button

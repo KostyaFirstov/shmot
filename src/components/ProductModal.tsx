@@ -5,6 +5,8 @@ import ProductImageSlider from './ProductImageSlider'
 import { Link } from 'react-router-dom'
 import axios from '../axios'
 import { ProductParams } from '../redux/slices/products'
+import { addCartItem, selectCartItems } from '../redux/slices/cart'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface IProductModal {
 	productTitle: string
@@ -19,6 +21,11 @@ const ProductModal: React.FC<IProductModal> = ({
 }) => {
 	const [product, setProduct] = React.useState<ProductParams>()
 	const [activeSize, setActiveSize] = React.useState(0)
+
+	const isAdded = useSelector(selectCartItems).find(
+		item => item._id === product?._id
+	)
+	const dispatch = useDispatch()
 
 	React.useEffect(() => {
 		const fetchProduct = async () => {
@@ -60,9 +67,37 @@ const ProductModal: React.FC<IProductModal> = ({
 						<CopyCode bgcolor='black' code={'QL11147'} />
 						<div className='product-info__options'>
 							<div className='product-info__option'>
-								<button className='button button-black product-info__cart'>
-									Добавить в корзину <br /> {product.sizes[activeSize]}
-								</button>
+								{isAdded ? (
+									<button
+										onClick={() =>
+											dispatch(
+												addCartItem({
+													...product,
+													count: 1,
+													size: product.sizes[activeSize]
+												})
+											)
+										}
+										className='button button-black product-info__cart'
+									>
+										{isAdded.count} в корзине <br />
+									</button>
+								) : (
+									<button
+										onClick={() =>
+											dispatch(
+												addCartItem({
+													...product,
+													count: 1,
+													size: product.sizes[activeSize]
+												})
+											)
+										}
+										className='button button-black product-info__cart'
+									>
+										Добавить в корзину <br /> {product.sizes[activeSize]}
+									</button>
+								)}
 								<button className='button button-black product-info__favorite'>
 									<svg
 										width='29'

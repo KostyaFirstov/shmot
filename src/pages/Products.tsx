@@ -8,7 +8,8 @@ import {
 	fetchCategories,
 	selectCategories,
 	selectSearch,
-	selectSort
+	selectSort,
+	selectSortValue
 } from '../redux/slices/filters'
 import { fetchBrands, selectBrands } from '../redux/slices/filters'
 import { useLocation } from 'react-router-dom'
@@ -29,6 +30,7 @@ const Products = () => {
 	const categories = useSelector(selectCategories)
 	const brands = useSelector(selectBrands)
 	const sortValue = useSelector(selectSort)
+	const sortProperty = useSelector(selectSortValue)
 
 	const dispatch = useDispatch()
 	const appDispatch = useAppDispatch()
@@ -44,9 +46,9 @@ const Products = () => {
 		const gender = location.search.startsWith('?gender')
 			? `${location.search.slice(1)}`
 			: ''
-		// const sort = sortValue ? '&sortBy=' : ''
+		const sort = sortValue ? `&sort=${sortProperty}` : ''
 
-		appDispatch(fetchProducts({ categoryValue, brandValue, gender }))
+		appDispatch(fetchProducts({ categoryValue, brandValue, gender, sort }))
 	}
 
 	React.useEffect(() => {

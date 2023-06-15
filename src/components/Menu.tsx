@@ -1,5 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {
+	FetchFiltersParams,
+	selectBrands,
+	selectCategories
+} from '../redux/slices/filters'
+import { useSelector } from 'react-redux'
 
 interface IMenuProps {
 	handleCloseMenu: () => void
@@ -7,6 +13,9 @@ interface IMenuProps {
 }
 
 const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
+	const categories = useSelector(selectCategories)
+	const brands = useSelector(selectBrands)
+
 	return (
 		<div
 			onMouseEnter={() => setMenu(true)}
@@ -20,9 +29,13 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 							<Link to='/'>ВСЕ БРЕНДЫ</Link>
 						</div>
 						<ul className='menu__column-links'>
-							<li className='menu__column-link'>
-								<Link to='/'>adidas Originals</Link>
-							</li>
+							{brands.map((item, index) => {
+								return (
+									<li key={index} className='menu__column-link'>
+										<Link to={`/${item.link}`}>{item.name}</Link>
+									</li>
+								)
+							})}
 						</ul>
 					</div>
 					<div className='menu__column menu__column-categories'>
@@ -30,9 +43,13 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 							<Link to='/'>ВСЕ КАТЕГОРИИ</Link>
 						</div>
 						<ul className='menu__column-links'>
-							<li className='menu__column-link'>
-								<Link to='/'>Кроссовки</Link>
-							</li>
+							{categories.map((item, index) => {
+								return (
+									<li key={index} className='menu__column-link'>
+										<Link to={`/${item.link}`}>{item.name}</Link>
+									</li>
+								)
+							})}
 						</ul>
 					</div>
 					<div className='menu__column menu__column-clothes'>

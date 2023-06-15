@@ -14,6 +14,8 @@ import storage from 'redux-persist/lib/storage'
 import auth from './slices/auth'
 import products from './slices/products'
 import filters from './slices/filters'
+import reviews from './slices/reviews'
+import cart from './slices/cart'
 
 const persistConfig = {
 	key: 'root',
@@ -27,7 +29,9 @@ export const store = configureStore({
 	reducer: {
 		auth: persistedReducer,
 		products,
-		filters
+		filters,
+		reviews,
+		cart
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

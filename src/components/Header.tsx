@@ -6,7 +6,12 @@ import Search from './Search'
 import Account from './Account'
 import Cart from './Cart'
 import { useSelector } from 'react-redux'
-import { selectRequested } from '../redux/slices/filters'
+import {
+	fetchBrands,
+	fetchCategories,
+	selectRequested
+} from '../redux/slices/filters'
+import { useAppDispatch } from '../redux/store'
 
 const links = [
 	{ link: '/catalog?gender=men', name: 'Мужское' },
@@ -22,6 +27,7 @@ const Header = () => {
 	const [search, setSearch] = React.useState(false)
 	const bgRef = React.useRef<HTMLDivElement>(null)
 	const requested = useSelector(selectRequested)
+	const appDispatch = useAppDispatch()
 
 	React.useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -35,6 +41,11 @@ const Header = () => {
 
 		document.body.addEventListener('click', handleClickOutside)
 		return () => document.body.removeEventListener('click', handleClickOutside)
+	}, [])
+
+	React.useEffect(() => {
+		appDispatch(fetchCategories())
+		appDispatch(fetchBrands())
 	}, [])
 
 	React.useEffect(() => {

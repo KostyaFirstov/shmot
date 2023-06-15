@@ -193,6 +193,8 @@ export const filtersSlice = createSlice({
 
 export const selectSearch = (state: RootState) => state.filters.search
 export const selectSort = (state: RootState) => state.filters.sort.name
+export const selectSortValue = (state: RootState) =>
+	state.filters.sort.sortProperty
 export const selectBrand = (state: RootState) => state.filters.brand
 export const selectCategory = (state: RootState) => state.filters.category
 export const selectCategories = (state: RootState) => state.filters.categories

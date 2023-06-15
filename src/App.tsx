@@ -11,6 +11,7 @@ import ReviewPage from './pages/ReviewPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import SearchPage from './pages/SearchPage'
+import CartPage from './pages/CartPage'
 
 function App() {
 	return (
@@ -26,6 +27,7 @@ function App() {
 					<Route path='/product/:title' element={<ProductPage />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
+					<Route path='/cart' element={<CartPage />} />
 				</Route>
 			</Routes>
 		</div>
