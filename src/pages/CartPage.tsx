@@ -64,7 +64,7 @@ const CartPage = () => {
 									</div>
 									<div className='cart__item-count'>
 										<button
-											onClick={() => dispatch(minusItem(item._id))}
+											onClick={() => dispatch(minusItem(item))}
 											className='button button-black'
 										>
 											<svg

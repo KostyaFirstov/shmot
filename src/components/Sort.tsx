@@ -17,9 +17,22 @@ const sortList = [
 
 const Sort = () => {
 	const [sortModal, setSortModal] = React.useState(false)
-
+	const sortRef = React.useRef<HTMLDivElement>(null)
 	const dispatch = useDispatch()
 	const sortValue = useSelector(selectSort)
+
+	React.useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			const _event = event.composedPath()
+
+			if (sortRef.current && !_event.includes(sortRef.current)) {
+				setSortModal(false)
+			}
+		}
+
+		document.addEventListener('click', handleClickOutside)
+		return () => document.removeEventListener('click', handleClickOutside)
+	}, [])
 
 	const hanldeSortValue = (i: number) => {
 		dispatch(setSortValue(sortList[i]))
@@ -31,7 +44,7 @@ const Sort = () => {
 	}
 
 	return (
-		<div className='sort'>
+		<div ref={sortRef} className='sort'>
 			<div onClick={hanldeSortModal} className='sort__title'>
 				<svg
 					width='14'
@@ -59,7 +72,9 @@ const Sort = () => {
 								<li
 									onClick={() => hanldeSortValue(index)}
 									key={index}
-									className='sort__item'
+									className={`${
+										sortValue === item.name ? 'active' : ''
+									} sort__item`}
 								>
 									{item.name}
 								</li>

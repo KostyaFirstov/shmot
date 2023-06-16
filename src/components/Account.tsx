@@ -54,38 +54,60 @@ const Account: React.FC<IAccountProps> = () => {
 						<div className='account-dropdown__image'>
 							<img src='/img/account-img.png' alt='' />
 						</div>
-						<div className='account-dropdown__rows'>
-							<div className='account-dropdown__row'>
-								<Link
-									onClick={() => setAccount(false)}
-									to='/login'
-									className='button button-black'
-								>
-									Войти
-								</Link>
+						{isAuth ? (
+							<div className='account-dropdown__rows account-dropdown-login'>
+								<div className='account-dropdown__row'>
+									<Link
+										onClick={() => setAccount(false)}
+										to='/account'
+										className='button button-black'
+									>
+										Мой Аккаунт
+									</Link>
+								</div>
+								<div className='account-dropdown__row'>
+									<button
+										onClick={() => dispatch(logout())}
+										className='button button button-green'
+									>
+										Выйти
+									</button>
+								</div>
 							</div>
-							<div className='account-dropdown__row'>
-								<Link
-									onClick={() => setAccount(false)}
-									to='/register'
-									className='button button button-green'
-								>
-									Зарегистрироваться
-								</Link>
-							</div>
-							<div className='account-dropdown__row'>
-								<p>
-									Забыли пароль?{' '}
+						) : (
+							<div className='account-dropdown__rows account-dropdown-unlogin'>
+								<div className='account-dropdown__row'>
+									<Link
+										onClick={() => setAccount(false)}
+										to='/login'
+										className='button button-black'
+									>
+										Войти
+									</Link>
+								</div>
+								<div className='account-dropdown__row'>
 									<Link
 										onClick={() => setAccount(false)}
 										to='/register'
-										className='account-dropdown__link'
+										className='button button button-green'
 									>
-										Восстановить
+										Зарегистрироваться
 									</Link>
-								</p>
+								</div>
+								<div className='account-dropdown__row'>
+									<p>
+										Забыли пароль?{' '}
+										<Link
+											onClick={() => setAccount(false)}
+											to='/register'
+											className='account-dropdown__link'
+										>
+											Восстановить
+										</Link>
+									</p>
+								</div>
 							</div>
-						</div>
+						)}
 						<button
 							onClick={() => setAccount(false)}
 							className='cart-dropdown__close'
@@ -105,12 +127,6 @@ const Account: React.FC<IAccountProps> = () => {
 									strokeLinejoin='round'
 								/>
 							</svg>
-						</button>
-						<button
-							onClick={() => dispatch(logout())}
-							className='cart-dropdown__close'
-						>
-							logout
 						</button>
 					</div>
 				</div>

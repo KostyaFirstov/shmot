@@ -1,11 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {
+	addCartItem,
+	minusItem,
+	selectCartItems,
+	selectCartTotal
+} from '../redux/slices/cart'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface ICartProps {}
 
 const Cart: React.FC<ICartProps> = () => {
 	const [cart, setCart] = React.useState(false)
 	const cartRef = React.useRef<HTMLDivElement>(null)
+
+	const cartItems = useSelector(selectCartItems)
+	const totalPrice = useSelector(selectCartTotal)
+
+	const dispatch = useDispatch()
 
 	React.useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -22,7 +34,10 @@ const Cart: React.FC<ICartProps> = () => {
 
 	return (
 		<div ref={cartRef}>
-			<button className='header__option-btn' onClick={() => setCart(!cart)}>
+			<button
+				className='header__option-btn header__option-btn-cart'
+				onClick={() => setCart(!cart)}
+			>
 				<svg
 					width='18'
 					height='18'
@@ -36,33 +51,121 @@ const Cart: React.FC<ICartProps> = () => {
 						strokeWidth='1.5'
 					/>
 				</svg>
+				{cartItems.length > 0 && <span>{cartItems.length}</span>}
 			</button>
 			{cart && (
-				<div className='cart-dropdown'>
+				<div
+					className={`cart-dropdown ${cartItems.length > 0 ? 'active' : ''}`}
+				>
 					<div className='cart-dropdown__wrapper'>
 						<div className='cart-dropdown__title'>Корзина</div>
-						<div className='cart-dropdown__clear'>
-							<div className='cart-dropdown__text'>
-								<p>Вы пока что еще ничего не добавили в корзину</p>
+						{cartItems.length === 0 ? (
+							<div className='cart-dropdown__clear'>
+								<div className='cart-dropdown__text'>
+									<p>Вы пока что еще ничего не добавили в корзину</p>
+								</div>
+								<div className='cart-dropdown__link'>
+									<Link className='button button-black' to='/'>
+										Перейти в каталог
+									</Link>
+								</div>
 							</div>
-							<div className='cart-dropdown__link'>
-								<Link className='button button-black' to='/cart'>
-									Перейти в корзину
-								</Link>
+						) : (
+							<div className='cart-dropdown__full'>
+								<div className='cart-dropdown__items'>
+									{cartItems.map((item, index) => {
+										return (
+											<div key={index} className='cart-dropdown__item'>
+												<div className='cart-dropdown__left'>
+													<div className='cart-dropdown__img'>
+														<img src='/img/swiper-image01.jpg' alt='' />
+													</div>
+												</div>
+												<div className='cart-dropdown__right'>
+													<div className='cart-dropdown__info'>
+														<div className='cart-dropdown__title'>
+															<span>{item.title}</span>
+														</div>
+														<div className='cart-dropdown__desc'>
+															<p>
+																{item.desc} / {item.size}
+															</p>
+														</div>
+														<div className='cart-dropdown__options'>
+															<div className='cart__item-count'>
+																<button
+																	onClick={() => dispatch(minusItem(item))}
+																	className='button button-black'
+																>
+																	<svg
+																		width='10'
+																		height='10'
+																		viewBox='0 0 10 10'
+																		fill='none'
+																		xmlns='http://www.w3.org/2000/svg'
+																	>
+																		<path
+																			d='M5.76 5.92001H3.84H0.96C0.42984 5.92001 -2.32e-08 5.49017 0 4.96001C2.31e-08 4.42985 0.42984 4.00001 0.96 4.00001L3.84 4L5.76 4.00001H8.64C9.17016 4.00001 9.6 4.42985 9.6 4.96001C9.6 5.49017 9.17016 5.92001 8.64 5.92001H5.76Z'
+																			fill='white'
+																		/>
+																	</svg>
+																</button>
+																<span className='cart-dropdown__options-count'>
+																	{item.count}
+																</span>
+																<button
+																	onClick={() => dispatch(addCartItem(item))}
+																	className='button button-black'
+																>
+																	<svg
+																		width='10'
+																		height='10'
+																		viewBox='0 0 10 10'
+																		fill='none'
+																		xmlns='http://www.w3.org/2000/svg'
+																	>
+																		<path
+																			d='M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z'
+																			fill='white'
+																		/>
+																		<path
+																			d='M5.76 5.92001H3.84H0.96C0.42984 5.92001 -2.32e-08 5.49017 0 4.96001C2.31e-08 4.42985 0.42984 4.00001 0.96 4.00001L3.84 4L5.76 4.00001H8.64C9.17016 4.00001 9.6 4.42985 9.6 4.96001C9.6 5.49017 9.17016 5.92001 8.64 5.92001H5.76Z'
+																			fill='white'
+																		/>
+																	</svg>
+																</button>
+															</div>
+														</div>
+													</div>
+													<div className='cart-dropdown__price'>
+														<span>{item.price} ₽</span>
+													</div>
+												</div>
+											</div>
+										)
+									})}
+								</div>
+								<div className='cart-dropdown__footer'>
+									<div className='cart-dropdown__footer-item'>
+										<button
+											onClick={() => setCart(false)}
+											className='button button-black'
+										>
+											Оформить заказ на {totalPrice} ₽
+										</button>
+									</div>
+									<div className='cart-dropdown__footer-item'>
+										<Link
+											onClick={() => setCart(false)}
+											to='/cart'
+											className='button button-green'
+										>
+											Перейти на страницу корзины
+										</Link>
+									</div>
+								</div>
 							</div>
-							<div className='cart-dropdown__link'>
-								<Link className='button button-black' to='/'>
-									Перейти в каталог
-								</Link>
-							</div>
-						</div>
-						<div className='cart-dropdown__items'>
-							<div className='cart-dropdown__item'>
-								{/* <div className='cart-dropdown__img'>
-									<img src='/img/swiper-image01.jpg' alt='' />
-								</div> */}
-							</div>
-						</div>
+						)}
 						<button
 							onClick={() => setCart(false)}
 							className='cart-dropdown__close'

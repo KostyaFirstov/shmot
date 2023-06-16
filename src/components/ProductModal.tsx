@@ -5,8 +5,9 @@ import ProductImageSlider from './ProductImageSlider'
 import { Link } from 'react-router-dom'
 import axios from '../axios'
 import { ProductParams } from '../redux/slices/products'
-import { addCartItem, selectCartItems } from '../redux/slices/cart'
+import { addCartItem, minusItem, selectCartItems } from '../redux/slices/cart'
 import { useDispatch, useSelector } from 'react-redux'
+import ProductOptions from './ProductOptions'
 
 interface IProductModal {
 	productTitle: string
@@ -21,11 +22,6 @@ const ProductModal: React.FC<IProductModal> = ({
 }) => {
 	const [product, setProduct] = React.useState<ProductParams>()
 	const [activeSize, setActiveSize] = React.useState(0)
-
-	const isAdded = useSelector(selectCartItems).find(
-		item => item._id === product?._id
-	)
-	const dispatch = useDispatch()
 
 	React.useEffect(() => {
 		const fetchProduct = async () => {
@@ -65,69 +61,15 @@ const ProductModal: React.FC<IProductModal> = ({
 							setActiveSize={setActiveSize}
 						/>
 						<CopyCode bgcolor='black' code={'QL11147'} />
-						<div className='product-info__options'>
-							<div className='product-info__option'>
-								{isAdded ? (
-									<button
-										onClick={() =>
-											dispatch(
-												addCartItem({
-													...product,
-													count: 1,
-													size: product.sizes[activeSize]
-												})
-											)
-										}
-										className='button button-black product-info__cart'
-									>
-										{isAdded.count} в корзине <br />
-									</button>
-								) : (
-									<button
-										onClick={() =>
-											dispatch(
-												addCartItem({
-													...product,
-													count: 1,
-													size: product.sizes[activeSize]
-												})
-											)
-										}
-										className='button button-black product-info__cart'
-									>
-										Добавить в корзину <br /> {product.sizes[activeSize]}
-									</button>
-								)}
-								<button className='button button-black product-info__favorite'>
-									<svg
-										width='29'
-										height='26'
-										viewBox='0 0 29 26'
-										fill='none'
-										xmlns='http://www.w3.org/2000/svg'
-									>
-										<path
-											d='M21.1397 1.00002C22.9734 1.00002 24.6962 1.70822 25.9925 2.99149C27.278 4.26778 28 5.99737 28 7.80065C28 9.60392 27.278 11.3335 25.9925 12.6098L14.5003 24L3.00678 12.6098C1.72171 11.3336 1 9.60427 1 7.80133C1 5.9984 1.72171 4.26909 3.00678 2.99286C3.64251 2.35919 4.39875 1.85677 5.23174 1.5147C6.06473 1.17263 6.95792 0.997693 7.85959 1.00002C9.69324 1.00002 11.4161 1.70822 12.7124 2.99149L13.7649 4.03457L14.5003 4.76336L15.2344 4.03457L16.2869 2.99149C16.9229 2.35825 17.6792 1.8562 18.5122 1.51438C19.3451 1.17256 20.2382 0.99774 21.1397 1.00002Z'
-											stroke='white'
-											strokeWidth='1.5'
-										/>
-									</svg>
-								</button>
-							</div>
-							<div className='product-info__option'>
-								<button className='button button-green'>
-									Заказ в один клик
-								</button>
-							</div>
-							<div className='product-modal__link'>
-								<Link
-									onClick={hanldeSpoiler}
-									className=''
-									to={`/product/${productTitle}`}
-								>
-									Перейти на страницу товара
-								</Link>
-							</div>
+						<ProductOptions product={product} activeSize={activeSize} />
+						<div className='product-modal__link'>
+							<Link
+								onClick={hanldeSpoiler}
+								className=''
+								to={`/product/${product.title}`}
+							>
+								Перейти на страницу товара
+							</Link>
 						</div>
 					</div>
 					<button onClick={hanldeSpoiler} className='product-modal__close'>
