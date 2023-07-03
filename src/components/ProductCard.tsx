@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductParams> = ({
 					<div className='product__content'>
 						<div className='product__image'>
 							{/* img */}
-							<img src='/img/swiper-image01.jpg' alt={title} />
+							<img src={`http://localhost:5000${img[0]}`} alt={title} />
 						</div>
 						<ul className='product__sizes'>
 							{sizes.map((item, index) => {

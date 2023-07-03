@@ -23,15 +23,16 @@ const persistConfig = {
 	storage
 }
 
-const persistedReducer = persistReducer(persistConfig, auth)
+const rootReducer = combineReducers({ auth: auth, cart: cart })
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
 	reducer: {
-		auth: persistedReducer,
+		persistedReducer,
 		products,
 		filters,
-		reviews,
-		cart
+		reviews
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

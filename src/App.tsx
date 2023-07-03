@@ -12,6 +12,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import SearchPage from './pages/SearchPage'
 import CartPage from './pages/CartPage'
+import AccountPage from './pages/AccountPage'
 
 function App() {
 	return (
@@ -28,6 +29,7 @@ function App() {
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/cart' element={<CartPage />} />
+					<Route path='/account/*' element={<AccountPage />} />
 				</Route>
 			</Routes>
 		</div>

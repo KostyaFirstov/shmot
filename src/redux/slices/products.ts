@@ -42,6 +42,7 @@ export type ProductParams = {
 	_id: number
 	title: string
 	desc: string
+	text: string
 	img: string[]
 	categories: string[]
 	sizes: number[]

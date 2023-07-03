@@ -35,11 +35,6 @@ const Products = () => {
 	const dispatch = useDispatch()
 	const appDispatch = useAppDispatch()
 
-	React.useEffect(() => {
-		appDispatch(fetchCategories())
-		appDispatch(fetchBrands())
-	}, [])
-
 	const handleProducts = () => {
 		const categoryValue = category ? `&category=${category}` : ''
 		const brandValue = brand ? `&brand=${brand}` : ''

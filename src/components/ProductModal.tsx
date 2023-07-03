@@ -83,9 +83,9 @@ const ProductModal: React.FC<IProductModal> = ({
 							<path
 								d='M18 18L9.5 9.5M9.5 9.5L1 1M9.5 9.5L18 1M9.5 9.5L1 18'
 								stroke='#111111'
-								stroke-width='1.5'
-								stroke-linecap='round'
-								stroke-linejoin='round'
+								strokeWidth='1.5'
+								strokeLinecap='round'
+								strokeLinejoin='round'
 							/>
 						</svg>
 					</button>

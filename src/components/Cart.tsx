@@ -2,11 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {
 	addCartItem,
+	fetchPostCart,
 	minusItem,
 	selectCartItems,
 	selectCartTotal
 } from '../redux/slices/cart'
 import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch } from '../redux/store'
+import { selectAccount, selectIsAuth } from '../redux/slices/auth'
 
 interface ICartProps {}
 
@@ -16,8 +19,11 @@ const Cart: React.FC<ICartProps> = () => {
 
 	const cartItems = useSelector(selectCartItems)
 	const totalPrice = useSelector(selectCartTotal)
+	const isAuth = useSelector(selectIsAuth)
+	const account = useSelector(selectAccount)
 
 	const dispatch = useDispatch()
+	const appDispatch = useAppDispatch()
 
 	React.useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -31,6 +37,12 @@ const Cart: React.FC<ICartProps> = () => {
 		document.addEventListener('click', handleClickOutside)
 		return () => document.removeEventListener('click', handleClickOutside)
 	}, [])
+
+	React.useEffect(() => {
+		if (isAuth && account) {
+			appDispatch(fetchPostCart(account))
+		}
+	}, [cartItems])
 
 	return (
 		<div ref={cartRef}>

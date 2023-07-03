@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from '../../axios'
 import { RootState } from '../store'
 
 export const fetchAuth = createAsyncThunk(
 	'auth/fetchAuth',
 	async (params: FetchAuthParams) => {
-		const { data } = await axios.post('/api/auth/login', params)
+		const { data } = await axios.post<AccountData>('/api/auth/login', params)
 		return data
 	}
 )
@@ -17,6 +17,18 @@ export const fetchAuthRegister = createAsyncThunk(
 		return data
 	}
 )
+
+export type AccountData = {
+	id: number
+	username: string
+	email: string
+	orders: number
+	reviews: string
+	promocodes: number
+	createdAt: string
+	accessToken: string
+	avatar: string
+}
 
 type FetchAuthParams = {
 	email: string
@@ -36,7 +48,7 @@ export enum LoadingProperty {
 }
 
 interface IAuthSliceState {
-	data: null
+	data: null | AccountData
 	status: LoadingProperty
 	error: string
 }
@@ -63,11 +75,14 @@ export const authSlice = createSlice({
 			state.data = null
 			state.error = ''
 		})
-		builder.addCase(fetchAuth.fulfilled, (state, action) => {
-			state.status = LoadingProperty.STATUS_LOADED
-			state.data = action.payload
-			state.error = ''
-		})
+		builder.addCase(
+			fetchAuth.fulfilled,
+			(state, action: PayloadAction<AccountData>) => {
+				state.status = LoadingProperty.STATUS_LOADED
+				state.data = action.payload
+				state.error = ''
+			}
+		)
 		builder.addCase(fetchAuth.rejected, state => {
 			state.status = LoadingProperty.STATUS_ERROR
 			state.data = null
@@ -94,8 +109,12 @@ export const authSlice = createSlice({
 	}
 })
 
-export const selectIsAuth = (state: RootState) => Boolean(state.auth.data)
-export const selectErrorAuth = (state: RootState) => state.auth.error
+export const selectIsAuth = (state: RootState) =>
+	Boolean(state.persistedReducer.auth.data)
+export const selectAccount = (state: RootState) =>
+	state.persistedReducer.auth.data
+export const selectErrorAuth = (state: RootState) =>
+	state.persistedReducer.auth.error
 export const authReducer = authSlice.reducer
 
 export const { logout } = authSlice.actions

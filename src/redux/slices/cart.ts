@@ -1,13 +1,26 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from '../../axios'
 import { RootState } from '../store'
-import { LoadingProperty } from './auth'
+import { AccountData, LoadingProperty } from './auth'
 import { calcTotalPrice } from '../../utils/calcTotalPrice'
 
 export const fetchCart = createAsyncThunk('auth/fetchCart', async () => {
 	const { data } = await axios.get<CartItem[]>('/api/cart')
 	return data
 })
+
+export const fetchPostCart = createAsyncThunk(
+	'auth/fetchPostCart',
+	async (account: AccountData) => {
+		const config = {
+			headers: {
+				token: account
+			}
+		}
+		const { data } = await axios.post('/api/carts', config.headers.token)
+		return data
+	}
+)
 
 export type CartItem = {
 	_id: number
@@ -81,9 +94,12 @@ export const cartSlice = createSlice({
 	}
 })
 
-export const selectCartItems = (state: RootState) => state.cart.items
-export const selectCartTotal = (state: RootState) => state.cart.totalPrice
-export const selectCartLoading = (state: RootState) => state.cart.status
+export const selectCartItems = (state: RootState) =>
+	state.persistedReducer.cart.items
+export const selectCartTotal = (state: RootState) =>
+	state.persistedReducer.cart.totalPrice
+export const selectCartLoading = (state: RootState) =>
+	state.persistedReducer.cart.status
 
 export const { addCartItem, removeCartItem, minusItem, clearItems } =
 	cartSlice.actions
