@@ -559,17 +559,19 @@ body {
 	&__item {
 		position: relative;
 	}
-	&__item:hover &__favorite,
+
 	&__item:hover &__view,
 	&__item:hover &__sizes {
 		opacity: 1;
 		visibility: visible;
 	}
+
 	&__image img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
+
 	&__info {
 		display: flex;
 		justify-content: space-between;
@@ -585,10 +587,7 @@ body {
 		row-gap: 14px;
 		text-align: right;
 	}
-	&__favorite {
-		right: 14px;
-	}
-	&__favorite,
+
 	&__view {
 		top: 14px;
 		position: absolute;
@@ -597,17 +596,16 @@ body {
 		visibility: hidden;
 		transition: 0.15s ease;
 	}
-	&__favorite path,
+
 	&__view path {
 		transition: 0.15s ease;
 	}
-	&__favorite:hover path,
+
 	&__view:hover path {
 		stroke: $brand-color;
 	}
 	&__view {
-		right: 20px;
-		transform: translateX(-100%);
+		right: 14px;
 	}
 	&__content {
 		position: relative;
@@ -742,6 +740,12 @@ body {
 		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 22px;
 		margin-left: 40px;
+
+		&-search {
+			margin-left: 0;
+			flex-basis: 100%;
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
 
 	&__title span {
@@ -871,21 +875,13 @@ body {
 			padding: 5px;
 			min-height: 54px;
 		}
+
 		&__option {
 			margin-bottom: 6px;
 			display: flex;
 			justify-content: space-between;
 		}
-		&__options &__cart {
-			width: 84%;
-		}
-		&__options &__favorite {
-			width: 16%;
-			margin-left: 6px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
+
 		&__option:last-of-type {
 			margin-bottom: 0;
 		}
@@ -904,10 +900,12 @@ body {
 		&__parameters {
 			margin: 40px 0 0;
 		}
+
 		&__parameter {
 			padding: 10px 0;
 			border-bottom: 1px solid $gray-medium-color;
 		}
+
 		&__articule {
 			padding: 8px;
 			border-radius: $small-radius;
@@ -918,16 +916,20 @@ body {
 			transition: 0.15s ease;
 			margin-bottom: 24px;
 		}
+
 		&__articule.white {
 			background-color: #fff;
 		}
+
 		&__articule.black {
 			border: 1px solid black;
 		}
+
 		&__articule.active {
 			background-color: $brand-color;
 			border: 1px solid $brand-color;
 		}
+
 		&__text {
 			font-weight: 400;
 		}
@@ -1065,8 +1067,9 @@ body {
 	&__wrapper {
 		background-color: #fff;
 		max-width: 960px;
-		max-height: 600px;
+		max-height: 580px;
 		width: 100%;
+		height: 100%;
 		border-radius: $usual-radius;
 		padding: 20px;
 		display: flex;

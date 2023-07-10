@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ProductModal from './ProductModal'
-import { ProductParams } from '../redux/slices/products'
+import ProductModal from '../ProductModal'
+import { ProductParams } from '../../redux/slices/products'
 
 const ProductCard: React.FC<ProductParams> = ({
 	_id,
@@ -50,7 +50,6 @@ const ProductCard: React.FC<ProductParams> = ({
 				<Link to={`/product/${title}`}>
 					<div className='product__content'>
 						<div className='product__image'>
-							{/* img */}
 							<img src={`http://localhost:5000${img[0]}`} alt={title} />
 						</div>
 						<ul className='product__sizes'>
@@ -79,21 +78,6 @@ const ProductCard: React.FC<ProductParams> = ({
 					</div>
 				</Link>
 				<div className='product__options'>
-					<div className='product__favorite'>
-						<svg
-							width='22'
-							height='19'
-							viewBox='0 0 22 19'
-							fill='none'
-							xmlns='http://www.w3.org/2000/svg'
-						>
-							<path
-								d='M15.9183 1.00002C17.2766 1.00002 18.5528 1.51602 19.513 2.45102C20.4652 3.38093 21 4.64113 21 5.95502C21 7.2689 20.4652 8.5291 19.513 9.45902L11.0003 17.758L2.4865 9.45902C1.5346 8.52914 1 7.26915 1 5.95552C1 4.64188 1.5346 3.38189 2.4865 2.45202C2.95741 1.99032 3.5176 1.62425 4.13462 1.37501C4.75165 1.12578 5.41327 0.998319 6.08118 1.00002C7.43944 1.00002 8.71563 1.51602 9.67585 2.45102L10.4555 3.21102L11.0003 3.74202L11.544 3.21102L12.3236 2.45102C12.7947 1.98963 13.355 1.62384 13.972 1.37478C14.589 1.12573 15.2505 0.998353 15.9183 1.00002Z'
-								stroke='#111111'
-								strokeWidth='1.2'
-							/>
-						</svg>
-					</div>
 					<div
 						ref={openSpoilerRef}
 						onClick={hanldeSpoiler}

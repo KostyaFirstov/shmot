@@ -3,7 +3,11 @@ import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { Thumbs } from 'swiper'
 
-const ProductImageSlider = () => {
+interface IProductImageSliderProps {
+	img: string[]
+}
+
+const ProductImageSlider: React.FC<IProductImageSliderProps> = ({ img }) => {
 	const [activeThumb, setActiveThumb] = React.useState<SwiperClass>()
 
 	return (
@@ -15,21 +19,13 @@ const ProductImageSlider = () => {
 				slidesPerView={1}
 				thumbs={{ swiper: activeThumb }}
 			>
-				<SwiperSlide className='product-image__slide'>
-					<img src='/img/goods/goods15.jpg' alt='' />
-				</SwiperSlide>
-				<SwiperSlide className='product-image__slide'>
-					<img src='/img/goods/goods14.jpg' alt='' />
-				</SwiperSlide>
-				<SwiperSlide className='product-image__slide'>
-					<img src='/img/goods/goods13.jpg' alt='' />
-				</SwiperSlide>
-				<SwiperSlide className='product-image__slide'>
-					<img src='/img/goods/goods12.jpg' alt='' />
-				</SwiperSlide>
-				<SwiperSlide className='product-image__slide'>
-					<img src='/img/goods/goods11.jpg' alt='' />
-				</SwiperSlide>
+				{img.map((item, index) => {
+					return (
+						<SwiperSlide key={index} className='product-image__slide'>
+							<img src={`http://localhost:5000${item}`} alt='' />
+						</SwiperSlide>
+					)
+				})}
 			</Swiper>
 			<div className='product-image__slider-thumb'>
 				<Swiper
@@ -38,21 +34,13 @@ const ProductImageSlider = () => {
 					spaceBetween={6}
 					slidesPerView={6.5}
 				>
-					<SwiperSlide className='thumb__slide'>
-						<img src='/img/goods/goods15.jpg' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className='thumb__slide'>
-						<img src='/img/goods/goods14.jpg' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className='thumb__slide'>
-						<img src='/img/goods/goods13.jpg' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className='thumb__slide'>
-						<img src='/img/goods/goods12.jpg' alt='' />
-					</SwiperSlide>
-					<SwiperSlide className='thumb__slide'>
-						<img src='/img/goods/goods11.jpg' alt='' />
-					</SwiperSlide>
+					{img.map((item, index) => {
+						return (
+							<SwiperSlide key={index} className='thumb__slide'>
+								<img src={`http://localhost:5000${item}`} alt='' />
+							</SwiperSlide>
+						)
+					})}
 				</Swiper>
 			</div>
 		</div>

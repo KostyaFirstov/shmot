@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from '../../axios'
 import { RootState } from '../store'
+import { getTokenFromLS } from '../../utils/getTokenFromLS'
 
 export const fetchAuth = createAsyncThunk(
 	'auth/fetchAuth',
@@ -19,11 +20,10 @@ export const fetchAuthRegister = createAsyncThunk(
 )
 
 export type AccountData = {
-	id: number
+	_id: number
 	username: string
 	email: string
 	orders: number
-	reviews: string
 	promocodes: number
 	createdAt: string
 	accessToken: string
@@ -59,12 +59,17 @@ const initialState: IAuthSliceState = {
 	error: ''
 }
 
+export const token = { value: getTokenFromLS() }
+
 export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
 		logout: state => {
 			state.data = null
+		},
+		updateUser: (state, action) => {
+			state.data = action.payload
 		}
 	},
 	extraReducers: builder => {
@@ -74,6 +79,7 @@ export const authSlice = createSlice({
 			state.status = LoadingProperty.STATUS_LOADING
 			state.data = null
 			state.error = ''
+			token.value = ''
 		})
 		builder.addCase(
 			fetchAuth.fulfilled,
@@ -81,12 +87,14 @@ export const authSlice = createSlice({
 				state.status = LoadingProperty.STATUS_LOADED
 				state.data = action.payload
 				state.error = ''
+				token.value = action.payload.accessToken
 			}
 		)
 		builder.addCase(fetchAuth.rejected, state => {
 			state.status = LoadingProperty.STATUS_ERROR
 			state.data = null
 			state.error = 'Неправильный логин или пароль'
+			token.value = ''
 		})
 
 		// REGISTER
@@ -95,16 +103,22 @@ export const authSlice = createSlice({
 			state.status = LoadingProperty.STATUS_LOADING
 			state.data = null
 			state.error = ''
+			token.value = ''
 		})
-		builder.addCase(fetchAuthRegister.fulfilled, (state, action) => {
-			state.status = LoadingProperty.STATUS_LOADED
-			state.data = action.payload
-			state.error = ''
-		})
+		builder.addCase(
+			fetchAuthRegister.fulfilled,
+			(state, action: PayloadAction<AccountData>) => {
+				state.status = LoadingProperty.STATUS_LOADED
+				state.data = action.payload
+				state.error = ''
+				token.value = action.payload.accessToken
+			}
+		)
 		builder.addCase(fetchAuthRegister.rejected, state => {
 			state.status = LoadingProperty.STATUS_ERROR
 			state.data = null
 			state.error = 'Не удалось зарегистрироваться'
+			token.value = ''
 		})
 	}
 })
@@ -117,5 +131,5 @@ export const selectErrorAuth = (state: RootState) =>
 	state.persistedReducer.auth.error
 export const authReducer = authSlice.reducer
 
-export const { logout } = authSlice.actions
+export const { logout, updateUser } = authSlice.actions
 export default authSlice.reducer

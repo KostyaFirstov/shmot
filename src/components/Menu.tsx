@@ -26,13 +26,13 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 				<div className='menu__columns'>
 					<div className='menu__column menu__column-brands'>
 						<div className='menu__column-title'>
-							<Link to='/'>ВСЕ БРЕНДЫ</Link>
+							<Link to='/brands'>ВСЕ БРЕНДЫ</Link>
 						</div>
 						<ul className='menu__column-links'>
 							{brands.map((item, index) => {
 								return (
 									<li key={index} className='menu__column-link'>
-										<Link to={`/${item.link}`}>{item.name}</Link>
+										<Link to={`/catalog?brands=${item.link}`}>{item.name}</Link>
 									</li>
 								)
 							})}
@@ -40,13 +40,15 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 					</div>
 					<div className='menu__column menu__column-categories'>
 						<div className='menu__column-title'>
-							<Link to='/'>ВСЕ КАТЕГОРИИ</Link>
+							<Link to='/categories'>ВСЕ КАТЕГОРИИ</Link>
 						</div>
 						<ul className='menu__column-links'>
 							{categories.map((item, index) => {
 								return (
 									<li key={index} className='menu__column-link'>
-										<Link to={`/${item.link}`}>{item.name}</Link>
+										<Link to={`/catalog?categories=${item.link}`}>
+											{item.name}
+										</Link>
 									</li>
 								)
 							})}

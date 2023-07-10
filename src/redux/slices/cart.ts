@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from '../../axios'
 import { RootState } from '../store'
-import { AccountData, LoadingProperty } from './auth'
+import { LoadingProperty } from './auth'
 import { calcTotalPrice } from '../../utils/calcTotalPrice'
 
 export const fetchCart = createAsyncThunk('auth/fetchCart', async () => {
@@ -11,16 +11,19 @@ export const fetchCart = createAsyncThunk('auth/fetchCart', async () => {
 
 export const fetchPostCart = createAsyncThunk(
 	'auth/fetchPostCart',
-	async (account: AccountData) => {
-		const config = {
-			headers: {
-				token: account
-			}
-		}
-		const { data } = await axios.post('/api/carts', config.headers.token)
+	async (props: UserCartProps) => {
+		const { userId, resData } = props
+		const { data } = await axios.put(`/api/carts/${userId}`, resData)
 		return data
 	}
 )
+
+export type UserCartProps = {
+	userId: number
+	resData: {
+		products: { productId: number; quantity: number }[]
+	}
+}
 
 export type CartItem = {
 	_id: number

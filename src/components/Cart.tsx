@@ -38,11 +38,21 @@ const Cart: React.FC<ICartProps> = () => {
 		return () => document.removeEventListener('click', handleClickOutside)
 	}, [])
 
-	React.useEffect(() => {
-		if (isAuth && account) {
-			appDispatch(fetchPostCart(account))
-		}
-	}, [cartItems])
+	// React.useEffect(() => {
+	// 	if (isAuth && account) {
+	// 		const userId = account._id
+	// 		const products = cartItems.map(product => {
+	// 			const objProducts = { productId: product._id, quantity: product.count }
+	// 			return objProducts
+	// 		})
+
+	// 		const resData = {
+	// 			products: products
+	// 		}
+
+	// 		appDispatch(fetchPostCart({ userId, resData }))
+	// 	}
+	// }, [cartItems])
 
 	return (
 		<div ref={cartRef}>

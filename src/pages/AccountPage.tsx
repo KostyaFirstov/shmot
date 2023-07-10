@@ -1,10 +1,35 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectAccount } from '../redux/slices/auth'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectAccount, selectIsAuth, updateUser } from '../redux/slices/auth'
+import { Link, Navigate } from 'react-router-dom'
+import axios from '../axios'
 
 const AccountPage = () => {
 	const account = useSelector(selectAccount)
+	const isAuth = useSelector(selectIsAuth)
+	const dispatch = useDispatch()
+
+	const hanldeChangeAvatar = async (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		try {
+			const formData = new FormData()
+			if (event.target.files) {
+				const file = event.target.files[0]
+				formData.append('image', file)
+				const { data } = await axios.post('/upload', formData)
+				await axios.put(`/api/users/${account?._id}`, { avatar: data.url })
+				dispatch(updateUser({ ...account, avatar: data.url }))
+			}
+		} catch (error) {
+			console.warn(error)
+			alert('Ошибка при загрузке файлов')
+		}
+	}
+
+	if (!isAuth) {
+		return <Navigate to='/' />
+	}
 
 	return (
 		<div className='account-page'>
@@ -13,8 +38,11 @@ const AccountPage = () => {
 					<div className='account-page__wrapper'>
 						<div className='account-page__header'>
 							<div className='account-page__avatar'>
-								<img src='/img/goods/goods15.jpg' alt='' />
-								<input type='file' id='file' />
+								<img
+									src={`http://localhost:5000${account?.avatar}`}
+									alt={`${account?.username} avatar`}
+								/>
+								<input onChange={hanldeChangeAvatar} type='file' id='file' />
 								<label htmlFor='file'></label>
 							</div>
 							<div className='account-page__info'>
@@ -24,7 +52,7 @@ const AccountPage = () => {
 								<ul className='account-page__stats'>
 									<li className='account-page__stats-item'>
 										<Link className='active' to='/account/orders'>
-											Заказов: <span>{account?.orders} 0</span>
+											Заказов: <span>{account?.orders}</span>
 										</Link>
 									</li>
 									<li className='account-page__stats-item'>

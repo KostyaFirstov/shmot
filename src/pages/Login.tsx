@@ -34,11 +34,6 @@ const Login = () => {
 			password: data.password
 		}
 		dispatch(fetchAuth(loginData))
-		// const loadedData = await dispatch(fetchAuth(loginData))
-
-		// if (data.signed && 'accessToken' in loadedData.payload) {
-		// 	localStorage.setItem('accessToken', loadedData.payload.accessToken)
-		// }
 	}
 
 	if (isAuth) {
@@ -79,17 +74,6 @@ const Login = () => {
 								{errors.password && (
 									<div className='form__error'>Не указан пароль</div>
 								)}
-							</div>
-							<div className='form__checkbox'>
-								<input
-									className={errors.password && 'error'}
-									type='checkbox'
-									{...register('signed')}
-									id='signed'
-								/>
-								<label className='form__label' htmlFor='signed'>
-									Сохранить вход
-								</label>
 							</div>
 							{errorAuth && (
 								<div className='error form__error-main'>{errorAuth}</div>

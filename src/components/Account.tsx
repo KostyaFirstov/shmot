@@ -94,18 +94,6 @@ const Account: React.FC<IAccountProps> = () => {
 										Зарегистрироваться
 									</Link>
 								</div>
-								<div className='account-dropdown__row'>
-									<p>
-										Забыли пароль?{' '}
-										<Link
-											onClick={() => setAccount(false)}
-											to='/register'
-											className='account-dropdown__link'
-										>
-											Восстановить
-										</Link>
-									</p>
-								</div>
 							</div>
 						)}
 						<button

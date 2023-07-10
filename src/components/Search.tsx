@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Product from './ProductCard'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -29,6 +29,7 @@ const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
 	const products = useSelector(selectProductsSearch)
 	const requested = useSelector(selectRequested)
 
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const appDispatch = useAppDispatch()
 
@@ -56,11 +57,27 @@ const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
 		dispatch(setSearchValue(value.toString()))
 		dispatch(setRequestedValue(value))
 		appDispatch(fetchPostRequests({ text: value }))
+		handleToggleSearch()
 	}
 
 	const handleRemoveRequested = (value: string) => {
 		dispatch(removeRequestedValue(value))
 	}
+
+	React.useEffect(() => {
+		const handleEnterClick = (event: KeyboardEvent) => {
+			if (event.key === 'Enter' && searchValue.length > 0) {
+				dispatch(setSearchValue(searchValue))
+				dispatch(setRequestedValue(searchValue))
+				appDispatch(fetchPostRequests({ text: searchValue }))
+				handleToggleSearch()
+				navigate(`/search?product=${searchValue}`)
+			}
+		}
+
+		document.addEventListener('keypress', handleEnterClick)
+		return () => document.removeEventListener('keypress', handleEnterClick)
+	}, [searchValue])
 
 	return (
 		<div className='search'>
@@ -173,10 +190,10 @@ const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
 										<span>ТАК ЖЕ ИЩУТ</span>
 									</div>
 									<ul className='requests__links'>
-										{request.map(item => {
+										{request.map((item, index) => {
 											return (
 												<li
-													key={item._id}
+													key={index}
 													onClick={() => handleSetRequest(item.text)}
 													className='requests__link'
 												>
@@ -192,10 +209,19 @@ const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
 						)}
 					</div>
 					<div>
-						{searchValue.length === 0 && <div>Новинки</div>}
+						{searchValue.length === 0 ? (
+							<div>Новинки</div>
+						) : (
+							<div>Найдено по вашему запросу:</div>
+						)}
 						<div className='search__goods'>
 							{products.map((item, index) => {
-								if (index < 3) return <Product {...item} />
+								if (index < 3)
+									return (
+										<div onClick={handleToggleSearch}>
+											<Product key={index} {...item} />
+										</div>
+									)
 							})}
 						</div>
 					</div>
