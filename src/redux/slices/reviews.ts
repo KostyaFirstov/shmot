@@ -59,7 +59,7 @@ export const reviewsSlice = createSlice({
 })
 
 export const selectReviews = (state: RootState) => state.reviews.items
-export const selectReviewsLoading = (state: RootState) => state.reviews.status
+export const selectReviewsStatus = (state: RootState) => state.reviews.status
 
 export const productsReducer = reviewsSlice.reducer
 

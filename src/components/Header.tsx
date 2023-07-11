@@ -18,14 +18,15 @@ const links = [
 	{ link: '/catalog?gender=women', name: 'Женское' },
 	{ link: '/', name: 'Аксессуары' },
 	{ link: '/reviews', name: 'Обзоры' },
-	{ link: '/', name: 'Дропы' },
+	{ link: '/drops', name: 'Дропы' },
 	{ link: '/about', name: 'О нас' }
 ]
 
 const Header = () => {
 	const [menu, setMenu] = React.useState(false)
 	const [search, setSearch] = React.useState(false)
-	const bgRef = React.useRef<HTMLDivElement>(null)
+	const searchOpenRef = React.useRef<HTMLButtonElement>(null)
+	const searchRef = React.useRef<HTMLDivElement>(null)
 	const requested = useSelector(selectRequested)
 	const appDispatch = useAppDispatch()
 
@@ -33,9 +34,15 @@ const Header = () => {
 		const handleClickOutside = (event: MouseEvent) => {
 			const _event = event.composedPath()
 
-			if (bgRef.current && _event.includes(bgRef.current)) {
+			if (
+				searchOpenRef.current &&
+				!_event.includes(searchOpenRef.current) &&
+				searchRef.current &&
+				!_event.includes(searchRef.current)
+			) {
 				setSearch(false)
 				document.body.style.overflow = ''
+				console.log('close!')
 			}
 		}
 
@@ -103,7 +110,7 @@ const Header = () => {
 							onClick={handleToggleSearch}
 							className='header__option header__option-search'
 						>
-							<button className='header__option-btn'>
+							<button ref={searchOpenRef} className='header__option-btn'>
 								<svg
 									width='19'
 									height='19'
@@ -126,13 +133,18 @@ const Header = () => {
 							<Cart />
 						</div>
 					</div>
-					{search && <Search handleToggleSearch={handleToggleSearch} />}
+					{search && (
+						<Search
+							searchRef={searchRef}
+							handleToggleSearch={handleToggleSearch}
+						/>
+					)}
 					{menu && (
 						<Menu setMenu={e => setMenu(e)} handleCloseMenu={handleCloseMenu} />
 					)}
 				</div>
 			</div>
-			{search && <div ref={bgRef} className='bg-black'></div>}
+			{search && <div className='bg-black'></div>}
 		</>
 	)
 }

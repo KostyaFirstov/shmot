@@ -4,9 +4,8 @@ import {
 	selectProductsSearch,
 	selectProductsStatus
 } from '../redux/slices/products'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectSearch, setSearchValue } from '../redux/slices/filters'
-import Sort from '../components/Sort'
+import { useSelector } from 'react-redux'
+import { selectSearch } from '../redux/slices/filters'
 import ProductCard from '../components/ProductCard'
 import { useAppDispatch } from '../redux/store'
 import { LoadingProperty } from '../redux/slices/auth'

@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom'
 import {
 	FetchFiltersParams,
 	selectBrands,
-	selectCategories
+	selectCategories,
+	selectFiltersStatus
 } from '../redux/slices/filters'
 import { useSelector } from 'react-redux'
+import { LoadingProperty } from '../redux/slices/auth'
+import { stat } from 'fs'
+import FiltersSkeleton from './Filters/FiltersSkeleton'
 
 interface IMenuProps {
 	handleCloseMenu: () => void
@@ -15,6 +19,7 @@ interface IMenuProps {
 const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 	const categories = useSelector(selectCategories)
 	const brands = useSelector(selectBrands)
+	const status = useSelector(selectFiltersStatus)
 
 	return (
 		<div
@@ -29,13 +34,22 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 							<Link to='/brands'>ВСЕ БРЕНДЫ</Link>
 						</div>
 						<ul className='menu__column-links'>
-							{brands.map((item, index) => {
-								return (
-									<li key={index} className='menu__column-link'>
-										<Link to={`/catalog?brands=${item.link}`}>{item.name}</Link>
-									</li>
-								)
-							})}
+							{status === LoadingProperty.STATUS_LOADING
+								? [...new Array(6)].map((item, index) => (
+										<FiltersSkeleton key={index} />
+								  ))
+								: brands.map((item, index) => {
+										return (
+											<li key={index} className='menu__column-link'>
+												<Link to={`/catalog?brands=${item.link}`}>
+													{item.name}
+												</Link>
+											</li>
+										)
+								  })}
+							{status === LoadingProperty.STATUS_ERROR && (
+								<>Ошибка при загрузке брендов</>
+							)}
 						</ul>
 					</div>
 					<div className='menu__column menu__column-categories'>
@@ -43,15 +57,22 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 							<Link to='/categories'>ВСЕ КАТЕГОРИИ</Link>
 						</div>
 						<ul className='menu__column-links'>
-							{categories.map((item, index) => {
-								return (
-									<li key={index} className='menu__column-link'>
-										<Link to={`/catalog?categories=${item.link}`}>
-											{item.name}
-										</Link>
-									</li>
-								)
-							})}
+							{status === LoadingProperty.STATUS_LOADING
+								? [...new Array(6)].map((item, index) => (
+										<FiltersSkeleton key={index} />
+								  ))
+								: categories.map((item, index) => {
+										return (
+											<li key={index} className='menu__column-link'>
+												<Link to={`/catalog?categories=${item.link}`}>
+													{item.name}
+												</Link>
+											</li>
+										)
+								  })}
+							{status === LoadingProperty.STATUS_ERROR && (
+								<>Ошибка при загрузке категорий</>
+							)}
 						</ul>
 					</div>
 					<div className='menu__column menu__column-clothes'>

@@ -90,7 +90,7 @@ export const authSlice = createSlice({
 				token.value = action.payload.accessToken
 			}
 		)
-		builder.addCase(fetchAuth.rejected, state => {
+		builder.addCase(fetchAuth.rejected, (state, action) => {
 			state.status = LoadingProperty.STATUS_ERROR
 			state.data = null
 			state.error = 'Неправильный логин или пароль'

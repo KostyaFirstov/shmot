@@ -1,20 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ReviewParams } from '../redux/slices/reviews'
+import { ReviewParams } from '../../redux/slices/reviews'
 
-const ReviewCard: React.FC<ReviewParams> = ({
-	title,
-	desc,
-	text,
-	tags,
-	img,
-	createdAt,
-	viewsCount
-}) => {
+const ReviewsCard: React.FC<ReviewParams> = ({ title, desc, img }) => {
 	return (
-		<Link to={`/review/${title}`} className='review-card'>
+		<Link to={`/reviews/${title}`} className='review-card'>
 			<div className='review-card__image'>
-				<img src='/img/reviewCard01.jpg' alt='' />
+				<img src={`http://localhost:5000${img[0]}`} alt='' />
 			</div>
 			<div className='review-card__info'>
 				<div className='review-card__desc'>
@@ -28,4 +20,4 @@ const ReviewCard: React.FC<ReviewParams> = ({
 	)
 }
 
-export default ReviewCard
+export default ReviewsCard

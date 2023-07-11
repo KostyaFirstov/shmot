@@ -740,6 +740,7 @@ body {
 		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 22px;
 		margin-left: 40px;
+		position: relative;
 
 		&-search {
 			margin-left: 0;
@@ -1163,20 +1164,75 @@ body {
 	}
 }
 
-.review-card {
-	&__image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+.review {
+	&-page {
+		&__image {
+			border-radius: $usual-radius;
+			overflow: hidden;
+			max-height: 460px;
+			margin-bottom: 20px;
+		}
+
+		&__image img {
+			max-width: 100%;
+			max-height: 460px;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		&__header {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		&__desc {
+			margin-top: 6px;
+
+			h3 {
+				color: $gray-dark-color;
+			}
+		}
+
+		&__viewscount {
+			margin-top: 6px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: $brand-color;
+			border-radius: $usual-radius;
+			padding: 6px;
+
+			span {
+				margin-right: 4px;
+			}
+		}
+
+		&__main {
+			margin-top: 20px;
+		}
 	}
 
-	&__info {
-		text-align: center;
-		padding: 10px;
-	}
+	&-card {
+		&__image {
+			max-height: 360px;
+			overflow: hidden;
+		}
+		&__image img {
+			width: 100%;
+			height: 100%;
+			max-height: 360px;
+			object-fit: cover;
+		}
 
-	&__desc {
-		font-weight: 300;
+		&__info {
+			text-align: center;
+			padding: 10px;
+		}
+
+		&__desc {
+			font-weight: 300;
+		}
 	}
 }
 
@@ -1585,5 +1641,22 @@ body {
 	}
 	&__link a:hover {
 		color: $brand-color;
+	}
+}
+
+.categories {
+	&__wrapper {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		column-gap: 22px;
+	}
+
+	&__item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	&__image {
 	}
 }

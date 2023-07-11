@@ -1,0 +1,55 @@
+@import '../../scss/vairables';
+
+.poster {
+	height: 460px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin: 20px 0 30px;
+}
+
+.headline,
+.details {
+	flex: 1;
+}
+
+.headline {
+	flex-basis: 50%;
+	max-width: 50%;
+	margin-right: 20px;
+}
+
+.title {
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+.desc {
+	max-width: 80%;
+	height: 24px;
+}
+.date {
+	height: 24px;
+	margin-bottom: 10px;
+}
+
+.viewsCount {
+	height: 30px;
+	text-align: right;
+	span {
+		max-width: 100px;
+		border-radius: $usual-radius;
+	}
+}
+
+.details {
+	max-width: 180px;
+}
+
+.main {
+	span {
+		min-height: 240px;
+	}
+}

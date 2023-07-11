@@ -16,6 +16,7 @@ import products from './slices/products'
 import filters from './slices/filters'
 import reviews from './slices/reviews'
 import cart from './slices/cart'
+import drops from './slices/drops'
 
 const persistConfig = {
 	key: 'root',
@@ -32,7 +33,8 @@ export const store = configureStore({
 		persistedReducer,
 		products,
 		filters,
-		reviews
+		reviews,
+		drops
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

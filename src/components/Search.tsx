@@ -6,6 +6,7 @@ import {
 	fetchGetRequests,
 	fetchPostRequests,
 	removeRequestedValue,
+	selectFiltersStatus,
 	selectRequested,
 	selectRequests,
 	selectSearch,
@@ -17,24 +18,28 @@ import {
 	fetchProductsSearch,
 	selectProductsSearch
 } from '../redux/slices/products'
+import { LoadingProperty } from '../redux/slices/auth'
+import FiltersSkeleton from './Filters/FiltersSkeleton'
 
 interface ISearch {
+	searchRef: React.RefObject<HTMLDivElement>
 	handleToggleSearch: () => void
 }
 
-const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
+const Search: React.FC<ISearch> = ({ searchRef, handleToggleSearch }) => {
 	const inputRef = React.useRef<HTMLInputElement>(null)
 	const searchValue = useSelector(selectSearch)
 	const request = useSelector(selectRequests)
 	const products = useSelector(selectProductsSearch)
 	const requested = useSelector(selectRequested)
+	const status = useSelector(selectFiltersStatus)
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const appDispatch = useAppDispatch()
 
 	React.useEffect(() => {
-		let search = searchValue.length > 0 ? searchValue : '&new=true'
+		const search = searchValue.length > 0 ? searchValue : '&new=true'
 		appDispatch(fetchProductsSearch({ searchValue: search }))
 	}, [searchValue])
 
@@ -81,7 +86,7 @@ const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
 
 	return (
 		<div className='search'>
-			<div className='search__wrapper wrapper'>
+			<div ref={searchRef} className='search__wrapper wrapper'>
 				<div className='search__header'>
 					<div className='search__input'>
 						<input
@@ -190,19 +195,26 @@ const Search: React.FC<ISearch> = ({ handleToggleSearch }) => {
 										<span>ТАК ЖЕ ИЩУТ</span>
 									</div>
 									<ul className='requests__links'>
-										{request.map((item, index) => {
-											return (
-												<li
-													key={index}
-													onClick={() => handleSetRequest(item.text)}
-													className='requests__link'
-												>
-													<Link to={`/search?search=${item.text}`}>
-														{item.text}
-													</Link>
-												</li>
-											)
-										})}
+										{status === LoadingProperty.STATUS_LOADING
+											? [...new Array(6)].map((item, index) => (
+													<FiltersSkeleton key={index} />
+											  ))
+											: request.map((item, index) => {
+													return (
+														<li
+															key={index}
+															onClick={() => handleSetRequest(item.text)}
+															className='requests__link'
+														>
+															<Link to={`/search?search=${item.text}`}>
+																{item.text}
+															</Link>
+														</li>
+													)
+											  })}
+										{status === LoadingProperty.STATUS_ERROR && (
+											<>Не удалось загрузить запросы</>
+										)}
 									</ul>
 								</div>
 							</>

@@ -7,12 +7,17 @@ import ProductPage from './pages/ProductPage'
 import Products from './pages/Products'
 import { ScrollToTop } from './utils/ScrollToTop'
 import Reviews from './pages/Reviews'
-import ReviewPage from './pages/ReviewPage'
+import ReviewPage from './pages/ReviewsPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import SearchPage from './pages/SearchPage'
 import CartPage from './pages/CartPage'
 import AccountPage from './pages/AccountPage'
+import Drops from './pages/Drops'
+import DropPage from './pages/DropPage'
+import NotFound from './pages/NotFound'
+import Categories from './pages/Categories'
+import Brands from './pages/Brands'
 
 function App() {
 	return (
@@ -23,13 +28,19 @@ function App() {
 					<Route path='/' element={<Home />} />
 					<Route path='/catalog' element={<Products />} />
 					<Route path='/reviews' element={<Reviews />} />
+					<Route path='/drops' element={<Drops />} />
+					<Route path='/brands' element={<Brands />} />
+					<Route path='/categories' element={<Categories />} />
+					<Route path='/drops' element={<Drops />} />
 					<Route path='/search' element={<SearchPage />} />
-					<Route path='/review/:title' element={<ReviewPage />} />
+					<Route path='/reviews/:title' element={<ReviewPage />} />
+					<Route path='/drops/:title' element={<DropPage />} />
 					<Route path='/product/:title' element={<ProductPage />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/cart' element={<CartPage />} />
 					<Route path='/account/*' element={<AccountPage />} />
+					<Route path='/*' element={<NotFound />} />
 				</Route>
 			</Routes>
 		</div>

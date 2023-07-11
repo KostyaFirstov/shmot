@@ -35,6 +35,7 @@ export const fetchPostRequests = createAsyncThunk(
 
 export type FetchFiltersParams = {
 	name: string
+	image: string
 	link: string
 }
 
