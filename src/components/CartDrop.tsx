@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {
 	addCartItem,
-	fetchPostCart,
 	minusItem,
 	selectCartItems,
 	selectCartTotal
@@ -100,7 +99,10 @@ const Cart: React.FC<ICartProps> = () => {
 											<div key={index} className='cart-dropdown__item'>
 												<div className='cart-dropdown__left'>
 													<div className='cart-dropdown__img'>
-														<img src='/img/swiper-image01.jpg' alt='' />
+														<img
+															src={`http://localhost:5000${item.img[0]}`}
+															alt={`${item.title}`}
+														/>
 													</div>
 												</div>
 												<div className='cart-dropdown__right'>

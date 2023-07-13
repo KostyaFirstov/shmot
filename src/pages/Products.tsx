@@ -25,6 +25,7 @@ import {
 import ProductCardSkeleton from '../components/ProductCard/ProductCardSkeleton'
 import { LoadingProperty } from '../redux/slices/auth'
 import ErrorBlock from '../components/ErrorBlock'
+import ContentLayout from '../layouts/ContentLayout'
 
 const Products = () => {
 	const products = useSelector(selectProducts)
@@ -40,12 +41,15 @@ const Products = () => {
 	const dispatch = useDispatch()
 	const appDispatch = useAppDispatch()
 
+	const isGender = location.search.startsWith('?gender')
+	const currentGender = isGender
+		? location.search.split('=').pop()
+		: 'Аксессуары'
+
 	const handleProducts = () => {
 		const categoryValue = category ? `&category=${category}` : ''
-		const brandValue = brand ? `&brands=${brand}` : ''
-		const gender = location.search.startsWith('?gender')
-			? `${location.search.slice(1)}`
-			: ''
+		const brandValue = brand ? `&brand=${brand}` : ''
+		const gender = isGender ? `${location.search.slice(1)}` : ''
 		const sort = sortValue ? `&sort=${sortProperty}` : ''
 
 		appDispatch(fetchProducts({ categoryValue, brandValue, gender, sort }))
@@ -55,57 +59,60 @@ const Products = () => {
 		handleProducts()
 	}, [location, category, brand, sortValue])
 
+	console.log(currentGender)
+
 	return (
-		<div className='catalog'>
-			<div className='content__area'>
-				<div className='catalog__wrapper wrapper'>
-					{status !== LoadingProperty.STATUS_ERROR ? (
-						<>
-							<div className='catalog__header'>
-								<div className='catalog__title'>
-									<h2>
-										All (
-										{status === LoadingProperty.STATUS_LOADING
-											? '?'
-											: products.length}
-										)
-									</h2>
-								</div>
-								<Sort />
-							</div>
-							<div className='catalog__main'>
-								<div className='catalog__filters'>
-									<Filters
-										handleFilter={value => dispatch(setCategoryValue(value))}
-										title='Категории'
-										list={categories}
-									/>
-									<Filters
-										handleFilter={value => dispatch(setBrandValue(value))}
-										title='Бренды'
-										list={brands}
-									/>
-								</div>
-								<div className='catalog__goods'>
-									{status === LoadingProperty.STATUS_LOADING
-										? [...new Array(6)].map((item, index) => (
-												<ProductCardSkeleton key={index} />
-										  ))
-										: products.map((item, index) => {
-												return <ProductCard key={index} {...item} />
-										  })}
-								</div>
-							</div>
-						</>
-					) : (
-						<ErrorBlock
-							title=' Упс, ошибка :('
-							desc='Не удалось загрузить товары'
-						/>
-					)}
-				</div>
-			</div>
-		</div>
+		<ContentLayout>
+			{status !== LoadingProperty.STATUS_ERROR ? (
+				<>
+					<div className='catalog__header'>
+						<div className='catalog__title'>
+							<h2>
+								{currentGender === 'Аксессуары'
+									? 'Аксессуары'
+									: currentGender === 'women'
+									? 'Женское'
+									: 'Мужское'}{' '}
+								(
+								{status === LoadingProperty.STATUS_LOADING
+									? '?'
+									: products.length}
+								)
+							</h2>
+						</div>
+						<Sort />
+					</div>
+					<div className='catalog__main'>
+						<div className='catalog__filters'>
+							<Filters
+								handleFilter={value => dispatch(setCategoryValue(value))}
+								title='Категории'
+								list={categories}
+							/>
+							<Filters
+								handleFilter={value => dispatch(setBrandValue(value))}
+								title='Бренды'
+								list={brands}
+							/>
+						</div>
+						<div className='catalog__goods'>
+							{status === LoadingProperty.STATUS_LOADING
+								? [...new Array(6)].map((item, index) => (
+										<ProductCardSkeleton key={index} />
+								  ))
+								: products.map((item, index) => {
+										return <ProductCard key={index} {...item} />
+								  })}
+						</div>
+					</div>
+				</>
+			) : (
+				<ErrorBlock
+					title=' Упс, ошибка :('
+					desc='Не удалось загрузить товары'
+				/>
+			)}
+		</ContentLayout>
 	)
 }
 

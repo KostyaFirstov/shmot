@@ -1,8 +1,5 @@
 import React from 'react'
-import {
-	FetchFiltersParams,
-	selectFiltersStatus
-} from '../../redux/slices/filters'
+import { FiltersParams, selectFiltersStatus } from '../../redux/slices/filters'
 import { selectBrand, selectCategory } from '../../redux/slices/filters'
 import { useSelector } from 'react-redux'
 import { LoadingProperty } from '../../redux/slices/auth'
@@ -10,7 +7,7 @@ import FiltersSkeleton from './FiltersSkeleton'
 
 interface FiltersProps {
 	title: string
-	list: FetchFiltersParams[]
+	list: FiltersParams[]
 	handleFilter: (value: string) => void
 }
 
@@ -31,11 +28,11 @@ const Filters: React.FC<FiltersProps> = ({ title, list, handleFilter }) => {
 							return (
 								<li
 									key={index}
-									onClick={() => handleFilter(item.link)}
+									onClick={() => handleFilter(item.name)}
 									className={`${
-										category.toLowerCase() === item.link.toLowerCase()
+										category.toLowerCase() === item.name.toLowerCase()
 											? 'active'
-											: '' || brand.toLowerCase() === item.link.toLowerCase()
+											: '' || brand.toLowerCase() === item.name.toLowerCase()
 											? 'active'
 											: ''
 									} filters__item`}

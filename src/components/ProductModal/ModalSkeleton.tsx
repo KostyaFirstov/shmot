@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton'
 import styles from './ProductModal.module.scss'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-const ModalSkeleton = (props: any) => (
+const ModalSkeleton = () => (
 	<div className={styles.root}>
 		<div className={styles.leftside}>
 			<div className={styles.leftside__image}>

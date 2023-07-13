@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {
-	FetchFiltersParams,
+	FiltersParams,
 	selectBrands,
 	selectCategories,
 	selectFiltersStatus
@@ -31,7 +31,9 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 				<div className='menu__columns'>
 					<div className='menu__column menu__column-brands'>
 						<div className='menu__column-title'>
-							<Link to='/brands'>ВСЕ БРЕНДЫ</Link>
+							<Link to='/brands' onClick={handleCloseMenu}>
+								ВСЕ БРЕНДЫ
+							</Link>
 						</div>
 						<ul className='menu__column-links'>
 							{status === LoadingProperty.STATUS_LOADING
@@ -40,7 +42,11 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 								  ))
 								: brands.map((item, index) => {
 										return (
-											<li key={index} className='menu__column-link'>
+											<li
+												key={index}
+												onClick={handleCloseMenu}
+												className='menu__column-link'
+											>
 												<Link to={`/catalog?brands=${item.link}`}>
 													{item.name}
 												</Link>
@@ -54,7 +60,9 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 					</div>
 					<div className='menu__column menu__column-categories'>
 						<div className='menu__column-title'>
-							<Link to='/categories'>ВСЕ КАТЕГОРИИ</Link>
+							<Link to='/categories' onClick={handleCloseMenu}>
+								ВСЕ КАТЕГОРИИ
+							</Link>
 						</div>
 						<ul className='menu__column-links'>
 							{status === LoadingProperty.STATUS_LOADING
@@ -63,7 +71,11 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 								  ))
 								: categories.map((item, index) => {
 										return (
-											<li key={index} className='menu__column-link'>
+											<li
+												key={index}
+												onClick={handleCloseMenu}
+												className='menu__column-link'
+											>
 												<Link to={`/catalog?categories=${item.link}`}>
 													{item.name}
 												</Link>

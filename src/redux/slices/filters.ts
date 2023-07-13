@@ -5,14 +5,14 @@ import { LoadingProperty } from './auth'
 import { getRequestFromLS } from '../../utils/getRequestsFromLS'
 
 export const fetchBrands = createAsyncThunk('auth/fetchBrands', async () => {
-	const { data } = await axios.get<FetchFiltersParams[]>('/api/brands')
+	const { data } = await axios.get<FiltersParams[]>('/api/brands')
 	return data
 })
 
 export const fetchCategories = createAsyncThunk(
 	'auth/fetchCategories',
 	async () => {
-		const { data } = await axios.get<FetchFiltersParams[]>('/api/categories')
+		const { data } = await axios.get<FiltersParams[]>('/api/categories')
 		return data
 	}
 )
@@ -33,7 +33,7 @@ export const fetchPostRequests = createAsyncThunk(
 	}
 )
 
-export type FetchFiltersParams = {
+export type FiltersParams = {
 	name: string
 	image: string
 	link: string
@@ -65,8 +65,8 @@ export type Sort = {
 }
 
 interface IFiltersSliceState {
-	brands: FetchFiltersParams[]
-	categories: FetchFiltersParams[]
+	brands: FiltersParams[]
+	categories: FiltersParams[]
 	requests: FetchRequestsParams[]
 	requested: FetchRequested[]
 	search: string
@@ -144,7 +144,7 @@ export const filtersSlice = createSlice({
 		})
 		builder.addCase(
 			fetchBrands.fulfilled,
-			(state, action: PayloadAction<FetchFiltersParams[]>) => {
+			(state, action: PayloadAction<FiltersParams[]>) => {
 				state.status = LoadingProperty.STATUS_LOADED
 				state.brands = action.payload
 			}
@@ -162,7 +162,7 @@ export const filtersSlice = createSlice({
 		})
 		builder.addCase(
 			fetchCategories.fulfilled,
-			(state, action: PayloadAction<FetchFiltersParams[]>) => {
+			(state, action: PayloadAction<FiltersParams[]>) => {
 				state.status = LoadingProperty.STATUS_LOADED
 				state.categories = action.payload
 			}

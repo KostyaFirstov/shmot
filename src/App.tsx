@@ -18,6 +18,8 @@ import DropPage from './pages/DropPage'
 import NotFound from './pages/NotFound'
 import Categories from './pages/Categories'
 import Brands from './pages/Brands'
+import BrandPage from './pages/BrandPage'
+import CategoriesPage from './pages/CategoriesPage'
 
 function App() {
 	return (
@@ -30,7 +32,9 @@ function App() {
 					<Route path='/reviews' element={<Reviews />} />
 					<Route path='/drops' element={<Drops />} />
 					<Route path='/brands' element={<Brands />} />
+					<Route path='/brands/:title' element={<BrandPage />} />
 					<Route path='/categories' element={<Categories />} />
+					<Route path='/categories/:title' element={<CategoriesPage />} />
 					<Route path='/drops' element={<Drops />} />
 					<Route path='/search' element={<SearchPage />} />
 					<Route path='/reviews/:title' element={<ReviewPage />} />

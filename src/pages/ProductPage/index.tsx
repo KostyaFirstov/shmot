@@ -10,6 +10,7 @@ import { ProductParams } from '../../redux/slices/products'
 import ProductOptions from '../../components/ProductOptions'
 import Tooltip from '../../components/Tooltip'
 import ProductSkeleton from './ProductSkeleton'
+import ContentLayout from '../../layouts/ContentLayout'
 
 const ProductPage = () => {
 	const [product, setProduct] = React.useState<ProductParams>()
@@ -57,82 +58,78 @@ const ProductPage = () => {
 			) : (
 				product && (
 					<div className='product-page'>
-						<div className='content__area'>
-							<div className='product__wrapper wrapper'>
-								<div className='product__images'>
-									{product.img.map((item, index) => (
-										<div key={index} className='product__image'>
-											<img
-												src={`http://localhost:5000${item}`}
-												alt={product.title}
-											/>
-										</div>
-									))}
-								</div>
-								<div className='product-info'>
-									<div className='product-info__header'>
-										<div className='product-info__title'>
-											<h1>{product.title}</h1>
-										</div>
-										<div className='product-info__desc desc'>
-											<span>{product.desc}</span>
-										</div>
-										<div className='product-info__price'>
-											<span>{product.price} ₽</span>
-										</div>
+						<ContentLayout>
+							<div className='product__images'>
+								{product.img.map((item, index) => (
+									<div key={index} className='product__image'>
+										<img
+											src={`http://localhost:5000${item}`}
+											alt={product.title}
+										/>
 									</div>
-									<Sizes
-										sizes={product.sizes}
-										activeSize={activeSize}
-										setActiveSize={setActiveSize}
-									/>
-									<ProductOptions product={product} activeSize={activeSize} />
-									<div className='product-info__details'>
-										<CopyCode bgcolor='white' code={'QL11147'} />
-										<div className='product-info__text'>
-											<p>{product.text}</p>
-										</div>
-										<ul className='product-info__parameters'>
-											{/* {product.categories.map((item, index) => {
+								))}
+							</div>
+							<div className='product-info'>
+								<div className='product-info__header'>
+									<div className='product-info__title'>
+										<h1>{product.title}</h1>
+									</div>
+									<div className='product-info__desc desc'>
+										<span>{product.desc}</span>
+									</div>
+									<div className='product-info__price'>
+										<span>{product.price} ₽</span>
+									</div>
+								</div>
+								<Sizes
+									sizes={product.sizes}
+									activeSize={activeSize}
+									setActiveSize={setActiveSize}
+								/>
+								<ProductOptions product={product} activeSize={activeSize} />
+								<div className='product-info__details'>
+									<CopyCode bgcolor='white' code={'QL11147'} />
+									<div className='product-info__text'>
+										<p>{product.text}</p>
+									</div>
+									<ul className='product-info__parameters'>
+										{/* {product.categories.map((item, index) => {
 								return <li className='product-info__parameter'>{item}</li>
 							})} */}
-											<li className='product-info__parameter'>
-												Материал: Верх - кожа; Подкладка - кожа, текстиль; Низ -
-												резина
-											</li>
-											<li className='product-info__parameter'>
-												Страна-производитель: Франция
-											</li>
-											<li className='product-info__parameter'>
-												Классическая модель
-											</li>
-											<li className='product-info__parameter'>
-												Минималистичный дизайн
-											</li>
-											<li className='product-info__parameter'>
-												Подкладка из кожи и текстиля
-											</li>
-											<li className='product-info__parameter'>
-												Кожаная стелька
-											</li>
-											<li className='product-info__parameter'>
-												Тисненый брендинг на подошве
-											</li>
-										</ul>
-									</div>
-									{testAccordionData.map((item, index) => {
-										return (
-											<Accordion
-												key={index}
-												title={item.title}
-												text={item.text}
-											/>
-										)
-									})}
+										<li className='product-info__parameter'>
+											Материал: Верх - кожа; Подкладка - кожа, текстиль; Низ -
+											резина
+										</li>
+										<li className='product-info__parameter'>
+											Страна-производитель: Франция
+										</li>
+										<li className='product-info__parameter'>
+											Классическая модель
+										</li>
+										<li className='product-info__parameter'>
+											Минималистичный дизайн
+										</li>
+										<li className='product-info__parameter'>
+											Подкладка из кожи и текстиля
+										</li>
+										<li className='product-info__parameter'>Кожаная стелька</li>
+										<li className='product-info__parameter'>
+											Тисненый брендинг на подошве
+										</li>
+									</ul>
 								</div>
+								{testAccordionData.map((item, index) => {
+									return (
+										<Accordion
+											key={index}
+											title={item.title}
+											text={item.text}
+										/>
+									)
+								})}
 							</div>
 							{tooltip && <Tooltip orderRef={orderRef} />}
-						</div>
+						</ContentLayout>
 						<ProductsSlider title='Вам также понравится' />
 					</div>
 				)

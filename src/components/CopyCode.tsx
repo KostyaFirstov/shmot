@@ -12,7 +12,7 @@ const CopyCode: React.FC<ICopyCodeProps> = ({ code, bgcolor }) => {
 		navigator.clipboard.writeText(`${code}`)
 		setCopy(true)
 
-		setTimeout(() => setCopy(false), 3000)
+		setTimeout(() => setCopy(false), 1500)
 	}
 
 	return (

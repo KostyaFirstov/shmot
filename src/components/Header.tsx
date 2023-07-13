@@ -4,7 +4,7 @@ import Logo from './Logo'
 import Menu from './Menu'
 import Search from './Search'
 import Account from './Account'
-import Cart from './Cart'
+import Cart from './CartDrop'
 import { useSelector } from 'react-redux'
 import {
 	fetchBrands,
@@ -16,7 +16,7 @@ import { useAppDispatch } from '../redux/store'
 const links = [
 	{ link: '/catalog?gender=men', name: 'Мужское' },
 	{ link: '/catalog?gender=women', name: 'Женское' },
-	{ link: '/', name: 'Аксессуары' },
+	{ link: '/catalog?type=accessories', name: 'Аксессуары' },
 	{ link: '/reviews', name: 'Обзоры' },
 	{ link: '/drops', name: 'Дропы' },
 	{ link: '/about', name: 'О нас' }
@@ -71,11 +71,7 @@ const Header = () => {
 
 	const handleOpenMenu = (event: React.MouseEvent<HTMLLIElement>) => {
 		const eventAttribute = event.currentTarget.getAttribute('data-name')
-		if (
-			eventAttribute === 'Мужское' ||
-			eventAttribute === 'Женское' ||
-			eventAttribute === 'Аксессуары'
-		) {
+		if (eventAttribute === 'Мужское' || eventAttribute === 'Женское') {
 			setMenu(true)
 		}
 	}
