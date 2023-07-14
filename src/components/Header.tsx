@@ -42,7 +42,6 @@ const Header = () => {
 			) {
 				setSearch(false)
 				document.body.style.overflow = ''
-				console.log('close!')
 			}
 		}
 

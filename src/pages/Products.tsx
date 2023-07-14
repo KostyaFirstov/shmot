@@ -59,8 +59,6 @@ const Products = () => {
 		handleProducts()
 	}, [location, category, brand, sortValue])
 
-	console.log(currentGender)
-
 	return (
 		<ContentLayout>
 			{status !== LoadingProperty.STATUS_ERROR ? (

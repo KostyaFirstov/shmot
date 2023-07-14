@@ -69,6 +69,7 @@ interface IFiltersSliceState {
 	categories: FiltersParams[]
 	requests: FetchRequestsParams[]
 	requested: FetchRequested[]
+	gender: string
 	search: string
 	category: string
 	brand: string
@@ -81,6 +82,7 @@ const initialState: IFiltersSliceState = {
 	categories: [],
 	requests: [],
 	requested: getRequestFromLS(),
+	gender: '',
 	search: '',
 	category: '',
 	brand: '',
@@ -108,6 +110,7 @@ export const filtersSlice = createSlice({
 				state.category = action.payload
 			}
 		},
+
 		setBrandValue: (state, action) => {
 			if (state.brand === action.payload) {
 				state.brand = ''
@@ -203,6 +206,7 @@ export const selectBrands = (state: RootState) => state.filters.brands
 export const selectRequests = (state: RootState) => state.filters.requests
 export const selectFiltersStatus = (state: RootState) => state.filters.status
 export const selectRequested = (state: RootState) => state.filters.requested
+export const selectGender = (state: RootState) => state.filters.gender
 
 export const {
 	setSortValue,

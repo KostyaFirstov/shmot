@@ -282,9 +282,17 @@ body {
 	}
 
 	&__goods {
+		width: 100%;
+	}
+
+	&__items {
 		display: grid;
 		column-gap: 20px;
 		grid-template-columns: repeat(3, 1fr);
+	}
+
+	&__title {
+		margin-bottom: 4px;
 	}
 }
 
@@ -663,7 +671,7 @@ body {
 	background-size: contain;
 	background-repeat: no-repeat;
 	width: 10px;
-	height: 20px;
+	height: 16px;
 }
 
 .swiper-button-next::after {
@@ -841,6 +849,7 @@ body {
 	&__wrapper {
 		display: flex;
 		justify-content: space-between;
+		align-items: flex-start;
 	}
 
 	&__images {
@@ -1713,5 +1722,25 @@ body {
 				font-size: $fz-base;
 			}
 		}
+	}
+}
+
+.categories-page {
+	&__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 20px;
+	}
+
+	&__name {
+		flex: 1;
+		max-width: 346px;
+	}
+
+	&__main {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-gap: 20px;
 	}
 }

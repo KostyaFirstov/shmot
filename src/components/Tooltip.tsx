@@ -1,20 +1,22 @@
 import React from 'react'
 
 interface ITooltip {
+	title: string
+	price: number
 	orderRef: React.RefObject<HTMLButtonElement>
 }
 
-const Tooltip: React.FC<ITooltip> = ({ orderRef }) => {
+const Tooltip: React.FC<ITooltip> = ({ title, price, orderRef }) => {
 	return (
 		<div className='tooltip'>
 			<div className='tooltip__info'>
 				<div className='tooltip__title'>
-					<span>Nike Air Max 97 SE</span>
+					<span>{title}</span>
 				</div>
 				<div className='tooltip__price'>
-					<span>15.999 ₽</span>
+					<span>{price} ₽</span>
 				</div>
-				<button ref={orderRef} className='button button-green'>
+				<button ref={orderRef} className='button button-black'>
 					Заказ в один клик
 				</button>
 			</div>

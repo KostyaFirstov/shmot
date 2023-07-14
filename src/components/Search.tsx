@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Product from './ProductCard'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	fetchGetRequests,
@@ -20,6 +19,8 @@ import {
 } from '../redux/slices/products'
 import { LoadingProperty } from '../redux/slices/auth'
 import FiltersSkeleton from './Filters/FiltersSkeleton'
+import ProductCard from './ProductCard'
+import ProductCardSkeleton from './ProductCard/ProductCardSkeleton'
 
 interface ISearch {
 	searchRef: React.RefObject<HTMLDivElement>
@@ -220,21 +221,29 @@ const Search: React.FC<ISearch> = ({ searchRef, handleToggleSearch }) => {
 							</>
 						)}
 					</div>
-					<div>
+					<div className='search__goods'>
 						{searchValue.length === 0 ? (
-							<div>Новинки</div>
+							<div className='search__title'>
+								<h5>Новинки</h5>
+							</div>
 						) : (
-							<div>Найдено по вашему запросу:</div>
+							<div className='search__title'>
+								<h5>Найдено по вашему запросу:</h5>
+							</div>
 						)}
-						<div className='search__goods'>
-							{products.map((item, index) => {
-								if (index < 3)
-									return (
-										<div onClick={handleToggleSearch}>
-											<Product key={index} {...item} />
-										</div>
-									)
-							})}
+						<div className='search__items'>
+							{status === LoadingProperty.STATUS_LOADING
+								? [...Array(3)].map((item, index) => (
+										<ProductCardSkeleton key={index} />
+								  ))
+								: products.map((item, index) => {
+										if (index < 3)
+											return (
+												<div key={index} onClick={handleToggleSearch}>
+													<ProductCard view={false} {...item} />
+												</div>
+											)
+								  })}
 						</div>
 					</div>
 				</div>
