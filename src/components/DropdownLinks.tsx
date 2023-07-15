@@ -1,37 +1,38 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {
-	FiltersParams,
 	selectBrands,
 	selectCategories,
 	selectFiltersStatus
 } from '../redux/slices/filters'
 import { useSelector } from 'react-redux'
 import { LoadingProperty } from '../redux/slices/auth'
-import { stat } from 'fs'
 import FiltersSkeleton from './Filters/FiltersSkeleton'
 
-interface IMenuProps {
-	handleCloseMenu: () => void
-	setMenu: (value: boolean) => void
+interface IDropdownLinksProps {
+	setDropdown: (value: boolean) => void
+	handleCloseDropdown: () => void
 }
 
-const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
+const DropdownLinks: React.FC<IDropdownLinksProps> = ({
+	handleCloseDropdown,
+	setDropdown
+}) => {
 	const categories = useSelector(selectCategories)
 	const brands = useSelector(selectBrands)
 	const status = useSelector(selectFiltersStatus)
 
 	return (
 		<div
-			onMouseEnter={() => setMenu(true)}
-			onMouseLeave={handleCloseMenu}
+			onMouseEnter={() => setDropdown(true)}
+			onMouseLeave={handleCloseDropdown}
 			className='menu'
 		>
 			<div className='menu__wrapper wrapper'>
 				<div className='menu__columns'>
 					<div className='menu__column menu__column-brands'>
 						<div className='menu__column-title'>
-							<Link to='/brands' onClick={handleCloseMenu}>
+							<Link to='/brands' onClick={handleCloseDropdown}>
 								ВСЕ БРЕНДЫ
 							</Link>
 						</div>
@@ -44,7 +45,7 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 										return (
 											<li
 												key={index}
-												onClick={handleCloseMenu}
+												onClick={handleCloseDropdown}
 												className='menu__column-link'
 											>
 												<Link to={`/catalog?brands=${item.link}`}>
@@ -60,7 +61,7 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 					</div>
 					<div className='menu__column menu__column-categories'>
 						<div className='menu__column-title'>
-							<Link to='/categories' onClick={handleCloseMenu}>
+							<Link to='/categories' onClick={handleCloseDropdown}>
 								ВСЕ КАТЕГОРИИ
 							</Link>
 						</div>
@@ -73,7 +74,7 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 										return (
 											<li
 												key={index}
-												onClick={handleCloseMenu}
+												onClick={handleCloseDropdown}
 												className='menu__column-link'
 											>
 												<Link to={`/catalog?categories=${item.link}`}>
@@ -99,4 +100,4 @@ const Menu: React.FC<IMenuProps> = ({ handleCloseMenu, setMenu }) => {
 	)
 }
 
-export default Menu
+export default DropdownLinks

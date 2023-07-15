@@ -59,12 +59,17 @@ const ProductCard: React.FC<IProductCardProps> = ({
 						</div>
 						<ul className='product__sizes'>
 							{sizes.map((item, index) => {
-								return (
-									<li key={index} className='product__size'>
-										{item}
-									</li>
-								)
+								if (index < 3) {
+									return (
+										<li key={index} className='product__size'>
+											{item}
+										</li>
+									)
+								}
 							})}
+							{sizes.length > 3 && (
+								<li className='product__size'>+{sizes.length - 3}</li>
+							)}
 						</ul>
 					</div>
 					<div className='product__info'>
@@ -75,9 +80,7 @@ const ProductCard: React.FC<IProductCardProps> = ({
 						<div className='product__rightside'>
 							<div className='product__price'>{price} ₽</div>
 							<div className='product__link'>
-								<Link to={`/product/${title}`} className='button button-black'>
-									Подробнее
-								</Link>
+								<div className='button button-black'>Подробнее</div>
 							</div>
 						</div>
 					</div>

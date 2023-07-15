@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
-import Menu from './Menu'
+import DropdownLinks from './DropdownLinks'
 import Search from './Search'
 import Account from './Account'
 import Cart from './CartDrop'
@@ -23,7 +23,7 @@ const links = [
 ]
 
 const Header = () => {
-	const [menu, setMenu] = React.useState(false)
+	const [dropdown, setDropdown] = React.useState(false)
 	const [search, setSearch] = React.useState(false)
 	const searchOpenRef = React.useRef<HTMLButtonElement>(null)
 	const searchRef = React.useRef<HTMLDivElement>(null)
@@ -68,15 +68,15 @@ const Header = () => {
 		}
 	}
 
-	const handleOpenMenu = (event: React.MouseEvent<HTMLLIElement>) => {
+	const handleOpenDropdown = (event: React.MouseEvent<HTMLLIElement>) => {
 		const eventAttribute = event.currentTarget.getAttribute('data-name')
 		if (eventAttribute === 'Мужское' || eventAttribute === 'Женское') {
-			setMenu(true)
+			setDropdown(true)
 		}
 	}
 
-	const handleCloseMenu = () => {
-		setMenu(false)
+	const handleCloseDropdown = () => {
+		setDropdown(false)
 	}
 
 	return (
@@ -90,9 +90,9 @@ const Header = () => {
 								<li
 									key={index}
 									data-name={link.name}
-									onMouseEnter={handleOpenMenu}
-									onMouseLeave={handleCloseMenu}
-									onClick={handleCloseMenu}
+									onMouseEnter={handleOpenDropdown}
+									onMouseLeave={handleCloseDropdown}
+									onClick={handleCloseDropdown}
 									className='header__link'
 								>
 									<Link to={link.link}>{link.name}</Link>
@@ -134,8 +134,11 @@ const Header = () => {
 							handleToggleSearch={handleToggleSearch}
 						/>
 					)}
-					{menu && (
-						<Menu setMenu={e => setMenu(e)} handleCloseMenu={handleCloseMenu} />
+					{dropdown && (
+						<DropdownLinks
+							setDropdown={e => setDropdown(e)}
+							handleCloseDropdown={handleCloseDropdown}
+						/>
 					)}
 				</div>
 			</div>

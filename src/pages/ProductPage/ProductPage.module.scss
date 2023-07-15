@@ -80,3 +80,9 @@
 		height: 100%;
 	}
 }
+
+@media screen and (max-width: 1024px) {
+	.rightside__sizes {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
