@@ -30,3 +30,22 @@
 		max-width: 320px;
 	}
 }
+
+@media screen and (max-width: 900px) {
+	.img {
+		right: 0;
+		left: unset;
+		opacity: 0.5;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.title {
+		font-size: 36px;
+	}
+	.img {
+		svg {
+			max-width: 160px;
+		}
+	}
+}

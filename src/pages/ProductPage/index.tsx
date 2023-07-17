@@ -11,6 +11,7 @@ import ProductOptions from '../../components/ProductOptions'
 import Tooltip from '../../components/Tooltip'
 import ProductSkeleton from './ProductSkeleton'
 import ContentLayout from '../../layouts/ContentLayout'
+import ProductImageSlider from '../../components/ProductImageSlider'
 
 const ProductPage = () => {
 	const [product, setProduct] = React.useState<ProductParams>()
@@ -42,11 +43,10 @@ const ProductPage = () => {
 		const handleScrollBefore = () => {
 			const scrollTop = window.scrollY
 			const neededHeight = productInfoRef.current
-
 			if (neededHeight) {
 				if (
 					Math.ceil(scrollTop) >
-					Math.ceil(neededHeight.offsetTop + neededHeight.offsetHeight)
+					Math.ceil(neededHeight.offsetTop + neededHeight.offsetHeight - 68)
 				) {
 					setTooltip(true)
 				} else {
@@ -68,6 +68,9 @@ const ProductPage = () => {
 					<div className='product-page'>
 						<ContentLayout>
 							<div className='product__wrapper'>
+								<div className='product__images-slider'>
+									<ProductImageSlider img={product.img} />
+								</div>
 								<div className='product__images'>
 									{product.img.map((item, index) => (
 										<div key={index} className='product__image'>
@@ -78,7 +81,7 @@ const ProductPage = () => {
 										</div>
 									))}
 								</div>
-								<div ref={productInfoRef} className='product-info'>
+								<div className='product-info'>
 									<div className='product-info__header'>
 										<div className='product-info__title'>
 											<h1>{product.title}</h1>
@@ -95,7 +98,9 @@ const ProductPage = () => {
 										activeSize={activeSize}
 										setActiveSize={setActiveSize}
 									/>
-									<ProductOptions product={product} activeSize={activeSize} />
+									<div ref={productInfoRef} className='options'>
+										<ProductOptions product={product} activeSize={activeSize} />
+									</div>
 									<div className='product-info__details'>
 										<CopyCode bgcolor='white' code={'QL11147'} />
 										<div className='product-info__text'>
@@ -142,9 +147,11 @@ const ProductPage = () => {
 							</div>
 							{tooltip && (
 								<Tooltip
+									orderRef={orderRef}
+									img={product.img[0]}
 									title={product.title}
 									price={product.price}
-									orderRef={orderRef}
+									desc={product.desc}
 								/>
 							)}
 						</ContentLayout>

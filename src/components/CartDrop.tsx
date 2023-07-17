@@ -10,9 +10,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useAppDispatch } from '../redux/store'
 import { selectAccount, selectIsAuth } from '../redux/slices/auth'
 
-interface ICartProps {}
+interface ICartProps {
+	cartOpenRef: React.RefObject<HTMLButtonElement>
+}
 
-const Cart: React.FC<ICartProps> = () => {
+const Cart: React.FC<ICartProps> = ({ cartOpenRef }) => {
 	const [cart, setCart] = React.useState(false)
 	const cartRef = React.useRef<HTMLDivElement>(null)
 
@@ -28,7 +30,12 @@ const Cart: React.FC<ICartProps> = () => {
 		const handleClickOutside = (event: MouseEvent) => {
 			const _event = event.composedPath()
 
-			if (cartRef.current && !_event.includes(cartRef.current)) {
+			if (
+				cartRef.current &&
+				cartOpenRef.current &&
+				!_event.includes(cartRef.current) &&
+				!_event.includes(cartOpenRef.current)
+			) {
 				setCart(false)
 			}
 		}
@@ -54,8 +61,9 @@ const Cart: React.FC<ICartProps> = () => {
 	// }, [cartItems])
 
 	return (
-		<div ref={cartRef}>
+		<div>
 			<button
+				ref={cartOpenRef}
 				className='header__option-btn header__option-btn-cart'
 				onClick={() => setCart(!cart)}
 			>
@@ -78,7 +86,7 @@ const Cart: React.FC<ICartProps> = () => {
 				<div
 					className={`cart-dropdown ${cartItems.length > 0 ? 'active' : ''}`}
 				>
-					<div className='cart-dropdown__wrapper'>
+					<div ref={cartRef} className='cart-dropdown__wrapper'>
 						<div className='cart-dropdown__title'>Корзина</div>
 						{cartItems.length === 0 ? (
 							<div className='cart-dropdown__clear'>
@@ -86,7 +94,11 @@ const Cart: React.FC<ICartProps> = () => {
 									<p>Вы пока что еще ничего не добавили в корзину</p>
 								</div>
 								<div className='cart-dropdown__link'>
-									<Link className='button button-black' to='/'>
+									<Link
+										onClick={() => setCart(false)}
+										className='button button-black'
+										to='/'
+									>
 										Перейти в каталог
 									</Link>
 								</div>
@@ -211,6 +223,7 @@ const Cart: React.FC<ICartProps> = () => {
 							</svg>
 						</button>
 					</div>
+					<div className='cart-dropdown__bg'></div>
 				</div>
 			)}
 		</div>

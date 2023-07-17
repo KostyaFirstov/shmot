@@ -1,34 +1,41 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logo from './Logo'
-import DropdownLinks from './DropdownLinks'
-import Search from './Search'
-import Account from './Account'
-import Cart from './CartDrop'
+import Logo from '../Logo'
+import DropdownLinks from '../DropdownLinks'
+import Search from '../Search'
+import Account from '../Account'
+import Cart from '../CartDrop'
 import { useSelector } from 'react-redux'
 import {
 	fetchBrands,
 	fetchCategories,
 	selectRequested
-} from '../redux/slices/filters'
-import { useAppDispatch } from '../redux/store'
-
-const links = [
-	{ link: '/catalog?gender=men', name: 'Мужское' },
-	{ link: '/catalog?gender=women', name: 'Женское' },
-	{ link: '/catalog?type=accessories', name: 'Аксессуары' },
-	{ link: '/reviews', name: 'Обзоры' },
-	{ link: '/drops', name: 'Дропы' },
-	{ link: '/about', name: 'О нас' }
-]
+} from '../../redux/slices/filters'
+import { useAppDispatch } from '../../redux/store'
+import Menu from '../Menu'
+import HeaderLinks from './HeaderLinks'
 
 const Header = () => {
+	const [menu, setMenu] = React.useState(false)
 	const [dropdown, setDropdown] = React.useState(false)
 	const [search, setSearch] = React.useState(false)
+
+	const menuOpenRef = React.useRef<HTMLButtonElement>(null)
+	const cartOpenRef = React.useRef<HTMLButtonElement>(null)
 	const searchOpenRef = React.useRef<HTMLButtonElement>(null)
 	const searchRef = React.useRef<HTMLDivElement>(null)
+
 	const requested = useSelector(selectRequested)
 	const appDispatch = useAppDispatch()
+
+	React.useEffect(() => {
+		appDispatch(fetchCategories())
+		appDispatch(fetchBrands())
+	}, [])
+
+	React.useEffect(() => {
+		localStorage.setItem('requested', JSON.stringify(requested))
+	}, [requested])
 
 	React.useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -49,15 +56,6 @@ const Header = () => {
 		return () => document.body.removeEventListener('click', handleClickOutside)
 	}, [])
 
-	React.useEffect(() => {
-		appDispatch(fetchCategories())
-		appDispatch(fetchBrands())
-	}, [])
-
-	React.useEffect(() => {
-		localStorage.setItem('requested', JSON.stringify(requested))
-	}, [requested])
-
 	const handleToggleSearch = () => {
 		if (!search) {
 			setSearch(true)
@@ -68,37 +66,50 @@ const Header = () => {
 		}
 	}
 
-	const handleOpenDropdown = (event: React.MouseEvent<HTMLLIElement>) => {
-		const eventAttribute = event.currentTarget.getAttribute('data-name')
-		if (eventAttribute === 'Мужское' || eventAttribute === 'Женское') {
-			setDropdown(true)
+	const handleToggleMenu = () => {
+		if (!menu) {
+			setMenu(true)
+			document.body.style.overflow = 'hidden'
+		} else {
+			setMenu(false)
+			document.body.style.overflow = ''
 		}
-	}
-
-	const handleCloseDropdown = () => {
-		setDropdown(false)
 	}
 
 	return (
 		<>
 			<div className='header'>
 				<div className='header__wrapper wrapper'>
+					<div className='header__menu'>
+						<button ref={menuOpenRef} onClick={handleToggleMenu}>
+							<svg
+								width='32'
+								height='19'
+								viewBox='0 0 32 19'
+								fill='none'
+								xmlns='http://www.w3.org/2000/svg'
+							>
+								<rect width='32' height='2.90526' rx='1.45263' fill='#111111' />
+								<rect
+									y='7.74805'
+									width='32'
+									height='2.90526'
+									rx='1.45263'
+									fill='#23CFC9'
+								/>
+								<rect
+									y='15.4941'
+									width='32'
+									height='2.90526'
+									rx='1.45263'
+									fill='#111111'
+								/>
+							</svg>
+						</button>
+					</div>
 					<Logo />
 					<ul className='header__links'>
-						{links.map((link, index) => {
-							return (
-								<li
-									key={index}
-									data-name={link.name}
-									onMouseEnter={handleOpenDropdown}
-									onMouseLeave={handleCloseDropdown}
-									onClick={handleCloseDropdown}
-									className='header__link'
-								>
-									<Link to={link.link}>{link.name}</Link>
-								</li>
-							)
-						})}
+						<HeaderLinks setDropdown={e => setDropdown(e)} />
 					</ul>
 					<div className='header__options'>
 						<div
@@ -125,7 +136,7 @@ const Header = () => {
 							<Account />
 						</div>
 						<div className='header__option header__option-cart'>
-							<Cart />
+							<Cart cartOpenRef={cartOpenRef} />
 						</div>
 					</div>
 					{search && (
@@ -134,14 +145,16 @@ const Header = () => {
 							handleToggleSearch={handleToggleSearch}
 						/>
 					)}
-					{dropdown && (
-						<DropdownLinks
-							setDropdown={e => setDropdown(e)}
-							handleCloseDropdown={handleCloseDropdown}
-						/>
-					)}
+					{dropdown && <DropdownLinks setDropdown={e => setDropdown(e)} />}
 				</div>
 			</div>
+			{menu && (
+				<Menu
+					menuOpenRef={menuOpenRef}
+					handleToggleMenu={handleToggleMenu}
+					setDropdown={e => setDropdown(e)}
+				/>
+			)}
 			{search && <div className='bg-black'></div>}
 		</>
 	)

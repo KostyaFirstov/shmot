@@ -11,13 +11,9 @@ import FiltersSkeleton from './Filters/FiltersSkeleton'
 
 interface IDropdownLinksProps {
 	setDropdown: (value: boolean) => void
-	handleCloseDropdown: () => void
 }
 
-const DropdownLinks: React.FC<IDropdownLinksProps> = ({
-	handleCloseDropdown,
-	setDropdown
-}) => {
+const DropdownLinks: React.FC<IDropdownLinksProps> = ({ setDropdown }) => {
 	const categories = useSelector(selectCategories)
 	const brands = useSelector(selectBrands)
 	const status = useSelector(selectFiltersStatus)
@@ -25,14 +21,14 @@ const DropdownLinks: React.FC<IDropdownLinksProps> = ({
 	return (
 		<div
 			onMouseEnter={() => setDropdown(true)}
-			onMouseLeave={handleCloseDropdown}
+			onMouseLeave={() => setDropdown(false)}
 			className='menu'
 		>
 			<div className='menu__wrapper wrapper'>
 				<div className='menu__columns'>
 					<div className='menu__column menu__column-brands'>
 						<div className='menu__column-title'>
-							<Link to='/brands' onClick={handleCloseDropdown}>
+							<Link to='/brands' onClick={() => setDropdown(false)}>
 								ВСЕ БРЕНДЫ
 							</Link>
 						</div>
@@ -45,7 +41,7 @@ const DropdownLinks: React.FC<IDropdownLinksProps> = ({
 										return (
 											<li
 												key={index}
-												onClick={handleCloseDropdown}
+												onClick={() => setDropdown(false)}
 												className='menu__column-link'
 											>
 												<Link to={`/catalog?brands=${item.link}`}>
@@ -61,7 +57,7 @@ const DropdownLinks: React.FC<IDropdownLinksProps> = ({
 					</div>
 					<div className='menu__column menu__column-categories'>
 						<div className='menu__column-title'>
-							<Link to='/categories' onClick={handleCloseDropdown}>
+							<Link to='/categories' onClick={() => setDropdown(false)}>
 								ВСЕ КАТЕГОРИИ
 							</Link>
 						</div>
@@ -74,7 +70,7 @@ const DropdownLinks: React.FC<IDropdownLinksProps> = ({
 										return (
 											<li
 												key={index}
-												onClick={handleCloseDropdown}
+												onClick={() => setDropdown(false)}
 												className='menu__column-link'
 											>
 												<Link to={`/catalog?categories=${item.link}`}>

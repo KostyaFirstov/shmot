@@ -33,6 +33,17 @@ const ProductImageSlider: React.FC<IProductImageSliderProps> = ({ img }) => {
 					modules={[Thumbs]}
 					spaceBetween={6}
 					slidesPerView={6.5}
+					breakpoints={{
+						0: {
+							slidesPerView: 3.5
+						},
+						400: {
+							slidesPerView: 4.5
+						},
+						568: {
+							slidesPerView: 6.5
+						}
+					}}
 				>
 					{img.map((item, index) => {
 						return (
