@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# Modern FullStack ECommerce App (MERN-stack)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+<img src="https://i.ibb.co/tbc9L28/client-shmot01.jpg" alt="client-shmot01" border="0" align="center" style="width: 100%" />
+</div>
 
-## Available Scripts
+## Добро пожаловать в проект!
+Это прогрессивный фуллстак проект. <br/>
+При разработке был использовал MERN-стак.
 
-In the project directory, you can run:
 
-### `npm start`
+## Клиенсткая часть (Frontend):
+— <strong> React </strong> <em>(библиотека для создания самого приложения)</em>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+— <strong> TypeScript </strong> <em>(типизация кода для более удобного восприятия и вычисление ошибок на этапе разработки)</em>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+— <strong> Redux-Toolkit </strong> <em>(стейт менеджер, для работы и хранения состояний компонентов без вложенности)</em>
 
-### `npm test`
+— <strong> React-router-dom </strong> <em>(маршрутизация одностраничного приложения)</em>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+— <strong> Axios </strong> <em>(работа с асинхронными запросами)</em>
 
-### `npm run build`
+— <strong> React-loading-skeleton </strong> <em>(для красивого эффекта загрузки контента)</em>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  <em>и другое...</em>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Серверная часть (Backend):
+— <strong> NodeJS </strong> <em>(среда выполнения JS)</em>
 
-### `npm run eject`
+— <strong> Express </strong> <em>(веб сервер для работы NodeJS приложения)</em>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+— <strong> MongoDB + Mongoose </strong> <em>(работа с базой данных)</em>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+— <strong> CryptoJS </strong> <em>(шифрование пароля)</em>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+— <strong> Multer </strong> <em>(загрузка файлов / изображений)</em>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+— <strong> JWT Token </strong> <em>(аутентификация / авторизация)</em>
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Функционал веб-приложения:
+— <strong> Авторизация </strong> <em>(пользователи / админы)</em>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+— <strong>Админ панель</strong> <em>(CRUD-операции для создания товаров, пользователей, постов, дропов, категорий, запросов, брендов)</em>
+
+— <strong>Клиентская часть</strong> <em>(Возможность добавить товар в корзину, личный кабинет с историей заказов и аватаркой)</em>
+
+
+## Перейдите по ссылке и попробуйте сами!
+<ссылка>
